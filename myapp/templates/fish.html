@@ -1,14 +1,424 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>Fish</title>
-</head>
+{% load static %}
 
-<body>
+<style>
 
-<h1>Fish Page</h1>
+.product-section{
+
+width:84%;
+
+margin:70px auto;
+
+}
+
+.product-title{
+
+text-align:center;
+
+font-size:32px;
+
+font-weight:700;
+
+color:#202020;
+
+margin-bottom:35px;
+
+}
 
 
 
-</body>
-</html>
+/* GRID */
+
+.product-grid{
+
+display:grid;
+
+grid-template-columns:
+repeat(5,1fr);
+
+gap:26px;
+
+}
+
+
+
+
+/* LINK */
+
+.product-link{
+
+text-decoration:none;
+
+color:inherit;
+
+}
+
+
+/* CARD */
+
+.product-card{
+
+background:white;
+
+border-radius:12px;
+
+overflow:hidden;
+
+border:1px solid #ececec;
+
+transition:.25s;
+
+height:100%;
+
+}
+
+
+
+/* IMAGE */
+
+.product-card img{
+
+width:100%;
+
+height:320px;
+
+object-fit:contain;
+
+background:white;
+
+display:block;
+
+padding:0;
+
+}
+
+.product-card:hover{
+
+transform:translateY(-4px);
+
+box-shadow:0 8px 22px rgba(0,0,0,.08);
+
+}
+
+
+
+
+
+/* IMAGE */
+
+.product-card img{
+
+width:100%;
+
+height:320px;
+
+object-fit:contain;
+
+background:white;
+
+display:block;
+
+padding:0;
+
+}
+
+
+/* CONTENT */
+
+.product-content{
+
+padding:14px;
+
+}
+
+.product-name{
+
+font-size:17px;
+
+font-weight:500;
+
+line-height:1.5;
+
+min-height:72px;
+
+color:#222;
+
+}
+
+
+
+/* PRICE */
+
+.price{
+
+margin-top:12px;
+
+display:flex;
+
+align-items:center;
+
+gap:8px;
+
+flex-wrap:wrap;
+
+}
+
+.old{
+
+color:#777;
+
+font-size:16px;
+
+text-decoration-line:line-through;
+
+text-decoration-color:#c1272d;
+
+text-decoration-thickness:2px;
+
+}
+
+.new{
+
+color:#0b6b31;
+
+font-size:18px;
+
+font-weight:700;
+
+}
+
+.unit{
+
+color:#0b6b31;
+
+font-size:16px;
+
+font-weight:600;
+
+}
+
+
+
+/* RESPONSIVE */
+
+@media(max-width:1400px){
+
+.product-grid{
+
+grid-template-columns:
+repeat(4,1fr);
+
+}
+
+}
+
+@media(max-width:1000px){
+
+.product-grid{
+
+grid-template-columns:
+repeat(2,1fr);
+
+}
+
+}
+
+@media(max-width:650px){
+
+.product-grid{
+
+grid-template-columns:
+1fr;
+
+}
+
+}
+
+</style>
+
+
+
+<section class="product-section">
+
+<h1 class="product-title">
+
+Marine Fish - Cleaned Options Available
+
+</h1>
+
+
+
+<div class="product-grid">
+
+
+
+<a href="#" class="product-link">
+
+<div class="product-card">
+
+<img src="{% static 'img/fish1.jpg' %}">
+
+<div class="product-content">
+
+<div class="product-name">
+
+Grouper / Reef Cod / Hamour / Muri Meenu
+
+</div>
+
+<div class="price">
+
+<span class="old">₹504</span>
+
+<span class="new">₹399</span>
+
+<span class="unit">/500g</span>
+
+</div>
+
+</div>
+
+</div>
+
+</a>
+
+
+
+
+
+<a href="#" class="product-link">
+
+<div class="product-card">
+
+<img src="{% static 'img/fish2.jpg' %}">
+
+<div class="product-content">
+
+<div class="product-name">
+
+Marine Milk Fish / Poomeen (Large)
+
+</div>
+
+<div class="price">
+
+<span class="old">₹456</span>
+
+<span class="new">₹399</span>
+
+<span class="unit">/500g</span>
+
+</div>
+
+</div>
+
+</div>
+
+</a>
+
+
+
+
+
+<a href="#" class="product-link">
+
+<div class="product-card">
+
+<img src="{% static 'img/fish3.jpg' %}">
+
+<div class="product-content">
+
+<div class="product-name">
+
+Black King Fish / Motha / Cobia
+
+</div>
+
+<div class="price">
+
+{% comment %} <span class="old">₹625</span> {% endcomment %}
+
+<span class="new">₹649</span>
+
+<span class="unit">/500g</span>
+
+</div>
+
+</div>
+
+</div>
+
+</a>
+
+
+
+
+
+<a href="#" class="product-link">
+
+<div class="product-card">
+
+<img src="{% static 'img/fish4.jpg' %}">
+
+<div class="product-content">
+
+<div class="product-name">
+
+Pony Fish / Mullan
+
+</div>
+
+<div class="price">
+
+<span class="old">₹432</span>
+
+<span class="new">₹249</span>
+
+<span class="unit">/500g</span>
+
+</div>
+
+</div>
+
+</div>
+
+</a>
+
+
+
+
+
+<a href="#" class="product-link">
+
+<div class="product-card">
+
+<img src="{% static 'img/fish5.jpg' %}">
+
+<div class="product-content">
+
+<div class="product-name">
+
+Marine Sole Fish / Manthal / Repti
+
+</div>
+
+<div class="price">
+
+<span class="old">₹400</span>
+
+<span class="new">₹349</span>
+
+<span class="unit">/500g</span>
+
+</div>
+
+</div>
+
+</div>
+
+</a>
+
+
+
+</div>
+
+</section>
