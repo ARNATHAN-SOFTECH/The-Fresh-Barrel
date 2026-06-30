@@ -11,3 +11,21 @@ def poultry(request):
 
 def mutton(request):
     return render(request,"mutton.html")
+
+def faq(request):
+    return render(request, 'faq.html')
+
+def terms_conditions(request):
+    return render(request, 'terms_conditions.html')
+
+def blog(request):
+    return render(request, 'blog.html')
+
+def privacy_policy(request):
+    return render(request, 'privacy_policy.html')
+
+def refund_policy(request):
+    return render(request, 'refund_policy.html')
+
+def contact_us(request):
+    return render(request, 'contact_us.html')

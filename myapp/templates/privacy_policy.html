@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+
+{% block title %}Privacy Policy - The Fresh Barrel{% endblock %}
+
+{% block content %}
+
+<style>
+.policy-section{
+    background:#f8f8f8;
+    padding:60px 0;
+}
+
+.policy-card{
+    background:#fff;
+    padding:50px;
+    border-radius:15px;
+    box-shadow:0 2px 10px rgba(0,0,0,.05);
+}
+
+.policy-title{
+    color:#5c2f2f;
+    font-size:3rem;
+    margin-bottom:10px;
+}
+
+.policy-card h2{
+    color:#5c2f2f;
+    margin-top:30px;
+    margin-bottom:15px;
+}
+
+.policy-card p,
+.policy-card li{
+    line-height:1.8;
+    color:#444;
+}
+
+@media(max-width:768px){
+    .policy-card{
+        padding:25px;
+    }
+
+    .policy-title{
+        font-size:2rem;
+    }
+}
+</style>
+
+<section class="policy-section">
+    <div class="container">
+
+        <div class="policy-card">
+
+            <h1 class="policy-title">Privacy Policy</h1>
+
+            <p>
+                Fresh Barrel is committed to protecting your privacy and ensuring
+                the security of your personal information. This Privacy Policy
+                explains how we collect, use, and safeguard your information.
+            </p>
+
+            <h2>Consent</h2>
+
+            <p>
+                By using our website, mobile application, or services, you agree
+                to the collection and use of information in accordance with this
+                Privacy Policy.
+            </p>
+
+            <h2>Information We Collect</h2>
+
+            <ul>
+                <li>Name</li>
+                <li>Email address</li>
+                <li>Mobile number</li>
+                <li>Delivery address</li>
+                <li>Postal code</li>
+                <li>Order history and preferences</li>
+            </ul>
+
+            <h2>How We Use Your Information</h2>
+
+            <ul>
+                <li>To process and deliver orders.</li>
+                <li>To improve our products and services.</li>
+                <li>To provide customer support.</li>
+                <li>To send order updates and notifications.</li>
+                <li>To send promotional offers and newsletters.</li>
+            </ul>
+
+            <h2>Cookies</h2>
+
+            <p>
+                Fresh Barrel uses cookies to improve website functionality,
+                understand user behavior, and provide a better browsing
+                experience.
+            </p>
+
+            <h2>Data Security</h2>
+
+            <p>
+                We implement appropriate technical and organizational measures
+                to protect your information from unauthorized access, misuse,
+                disclosure, or loss.
+            </p>
+
+            <h2>Third-Party Links</h2>
+
+            <p>
+                Our website may contain links to third-party websites.
+                Fresh Barrel is not responsible for the privacy practices
+                of external websites.
+            </p>
+
+            <h2>Marketing Communications</h2>
+
+            <p>
+                We may send promotional emails, SMS messages, and notifications
+                regarding products, offers, and updates. You may opt out at any
+                time by contacting us.
+            </p>
+
+            <h2>Your Rights</h2>
+
+            <ul>
+                <li>Request access to your personal data.</li>
+                <li>Request correction of inaccurate information.</li>
+                <li>Request deletion of your personal information.</li>
+                <li>Withdraw marketing consent at any time.</li>
+            </ul>
+
+            <h2>Contact Us</h2>
+
+            <p>
+                Email: thefreshbarrel@gmail.com<br>
+                Phone: +91 XXXXX XXXXX
+            </p>
+
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}
