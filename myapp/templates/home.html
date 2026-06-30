@@ -1,8 +1,434 @@
+{% load static %}
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <title>Home Page</title>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>THE FRESH BARREL</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#f4f8f5;
+}
+
+
+/* TOP BAR */
+
+.topbar{
+
+background:#0b4426;
+
+color:white;
+
+padding:12px 80px;
+
+display:flex;
+
+justify-content:space-between;
+
+}
+
+
+
+/* HEADER */
+
+.header{
+
+background:white;
+
+padding:20px 80px;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+box-shadow:0 3px 15px rgba(0,0,0,.08);
+
+}
+
+.logo img{
+
+height:80px;
+
+}
+
+.search{
+
+width:55%;
+
+}
+
+.search input{
+
+width:100%;
+
+padding:16px;
+
+border:2px solid #0b4426;
+
+border-radius:10px;
+
+outline:none;
+
+font-size:16px;
+
+}
+
+
+
+/* MENU */
+
+.menu{
+
+background:#103d2c;
+
+padding:18px;
+
+display:flex;
+
+justify-content:center;
+
+gap:60px;
+
+}
+
+.menu a{
+
+color:white;
+
+text-decoration:none;
+
+font-size:20px;
+
+}
+
+.menu a:hover{
+
+color:#90ee90;
+
+}
+
+
+
+/* BANNER */
+
+.banner{
+
+width:85%;
+
+height:520px;
+
+margin:35px auto;
+
+overflow:hidden;
+
+border-radius:20px;
+
+box-shadow:0 10px 30px rgba(0,0,0,.15);
+
+}
+
+.slider{
+
+display:flex;
+
+height:100%;
+
+animation:slide 9s ease-in-out infinite;
+
+}
+
+.slide{
+
+min-width:100%;
+
+height:100%;
+
+position:relative;
+
+}
+
+.slide img{
+
+width:100%;
+
+height:100%;
+
+object-fit:cover;
+
+filter:brightness(60%);
+
+}
+
+
+
+/* BANNER TEXT */
+
+.banner-text{
+
+position:absolute;
+
+top:50%;
+
+left:90px;
+
+transform:translateY(-50%);
+
+color:white;
+
+max-width:550px;
+
+}
+
+.banner-text h1{
+
+font-size:58px;
+
+margin-bottom:20px;
+
+line-height:1.1;
+
+}
+
+.banner-text p{
+
+font-size:22px;
+
+line-height:1.8;
+
+margin-bottom:35px;
+
+}
+
+.banner-text button{
+
+padding:16px 38px;
+
+background:#0b4426;
+
+color:white;
+
+border:none;
+
+border-radius:8px;
+
+font-size:18px;
+
+cursor:pointer;
+
+}
+
+.banner-text button:hover{
+
+background:#145a32;
+
+}
+
+
+
+/* SLIDER */
+
+@keyframes slide{
+
+0%,30%{
+transform:translateX(0%);
+}
+
+33%,63%{
+transform:translateX(-100%);
+}
+
+66%,96%{
+transform:translateX(-200%);
+}
+
+100%{
+transform:translateX(0%);
+}
+
+}
+
+
+
+/* TITLE */
+
+.title{
+
+text-align:center;
+
+font-size:42px;
+
+color:#0b4426;
+
+margin-bottom:50px;
+
+}
+
+
+
+/* CARDS */
+
+.cards{
+
+display:flex;
+
+justify-content:center;
+
+gap:35px;
+
+padding-bottom:80px;
+
+}
+
+.card{
+
+width:340px;
+
+background:white;
+
+border-radius:20px;
+
+overflow:hidden;
+
+box-shadow:0 6px 20px rgba(0,0,0,.08);
+
+transition:.4s;
+
+}
+
+.card:hover{
+
+transform:translateY(-10px);
+
+}
+
+.card img{
+
+width:100%;
+
+height:240px;
+
+object-fit:cover;
+
+}
+
+.content{
+
+padding:25px;
+
+}
+
+.content h2{
+
+color:#0b4426;
+
+margin-bottom:15px;
+
+}
+
+.content p{
+
+line-height:1.8;
+
+color:#666;
+
+}
+
+.content button{
+
+margin-top:20px;
+
+padding:14px 30px;
+
+background:#0b4426;
+
+color:white;
+
+border:none;
+
+border-radius:8px;
+
+}
+
+
+
+/* FOOTER */
+
+.footer{
+
+background:#0b4426;
+
+color:white;
+
+text-align:center;
+
+padding:35px;
+
+}
+
+
+
+/* RESPONSIVE */
+
+@media(max-width:900px){
+
+.header{
+
+flex-direction:column;
+
+gap:20px;
+
+}
+
+.search{
+
+width:100%;
+
+}
+
+.cards{
+
+flex-direction:column;
+
+align-items:center;
+
+}
+
+.banner-text{
+
+left:35px;
+
+}
+
+.banner-text h1{
+
+font-size:40px;
+
+}
+
+.banner-text p{
+
+font-size:18px;
+
+}
+
+}
+
+</style>
 
 </head>
 
@@ -10,13 +436,202 @@
 
 
 
-<div class="hero">
+<div class="topbar">
 
-<h1>Welcome to Fresh Barrel</h1>
+<div>📞 1800-313-3302</div>
+
+<div>THE FRESH BARREL</div>
+
+</div>
+
+
+
+<div class="header">
+
+<div class="logo">
+
+<img src="{% static 'img/logo.jpeg' %}" alt="logo">
+
+</div>
+
+
+<div class="search">
+
+<input
+type="text"
+placeholder="Search fresh products">
+
+</div>
+
+</div>
+
+
+
+<div class="menu">
+
+<a href="#">Fish & Seafood</a>
+
+<a href="#">Poultry</a>
+
+<a href="#">Mutton</a>
+
+</div>
+
+
+
+<!-- BANNER -->
+
+<div class="banner">
+
+<div class="slider">
+
+
+
+<div class="slide">
+
+<img src="{% static 'img/banner1.jpeg' %}">
+
+<div class="banner-text">
+
+<h1>Fresh Fish Delivered Daily</h1>
+
+<p>
+Premium seafood delivered fresh and packed hygienically.
+</p>
+
+<button>Shop Fish</button>
+
+</div>
+
+</div>
+
+
+
+<div class="slide">
+
+<img src="{% static 'img/banner2.jpg' %}">
+
+<div class="banner-text">
+
+<h1>Premium Poultry Collection</h1>
+
+<p>
+Farm fresh poultry with unmatched quality and taste.
+</p>
+
+<button>Shop Poultry</button>
+
+</div>
+
+</div>
+
+
+
+<div class="slide">
+
+<img src="{% static 'img/banner3.jpg' %}">
+
+<div class="banner-text">
+
+<h1>Fresh Cut Mutton</h1>
+
+<p>
+Premium cuts selected and delivered at peak freshness.
+</p>
+
+<button>Shop Mutton</button>
+
+</div>
+
+</div>
 
 
 
 </div>
+
+</div>
+
+
+
+<div class="title">
+
+Fresh Delivered Daily
+
+</div>
+
+
+
+<div class="cards">
+
+<div class="card">
+
+<img src="{% static 'img/fish.webp' %}">
+
+<div class="content">
+
+<h2>Fish & Seafood</h2>
+
+<p>
+Premium quality seafood delivered to your doorstep.
+</p>
+
+<button>Explore</button>
+
+</div>
+
+</div>
+
+
+
+<div class="card">
+
+<img src="{% static 'img/poultry.webp' %}">
+
+<div class="content">
+
+<h2>Poultry</h2>
+
+<p>
+Fresh hygienically packed poultry products.
+</p>
+
+<button>Explore</button>
+
+</div>
+
+</div>
+
+
+
+<div class="card">
+
+<img src="{% static 'img/mutton.webp' %}">
+
+<div class="content">
+
+<h2>Mutton</h2>
+
+<p>
+Fresh premium cuts prepared for quality delivery.
+</p>
+
+<button>Explore</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<div class="footer">
+
+© 2026 THE FRESH BARREL • Freshness Delivered
+
+</div>
+
+
 
 </body>
 
