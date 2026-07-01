@@ -1,218 +1,90 @@
 {% extends 'base.html' %}
-{% load static %}
 
 {% block title %}
-Poulry - The Fresh Barrel
+Poultry - The Fresh Barrel
 {% endblock %}
 
 {% block extra_css %}
+
 <style>
 
 .product-section{
-
 width:84%;
-
 margin:70px auto;
-
 }
 
 .product-title{
-
 text-align:center;
-
 font-size:32px;
-
 font-weight:700;
-
-color:#202020;
-
 margin-bottom:35px;
-
 }
-
-
-
-/* GRID */
 
 .product-grid{
-
 display:grid;
-
-grid-template-columns:
-repeat(5,1fr);
-
+grid-template-columns:repeat(5,1fr);
 gap:26px;
-
 }
-
-
-
-
-/* LINK */
-
-.product-link{
-
-text-decoration:none;
-
-color:inherit;
-
-}
-
-
-/* CARD */
 
 .product-card{
-
 background:white;
-
 border-radius:12px;
-
 overflow:hidden;
-
 border:1px solid #ececec;
-
-transition:.25s;
-
-height:100%;
-
-}
-
-
-
-/* IMAGE */
-
-.product-card img{
-
-width:100%;
-
-height:320px;
-
-object-fit:contain;
-
-background:white;
-
-display:block;
-
-padding:0;
-
+transition:.3s;
 }
 
 .product-card:hover{
-
-transform:translateY(-4px);
-
+transform:translateY(-5px);
 box-shadow:0 8px 22px rgba(0,0,0,.08);
-
 }
-
-
-
-
-
-/* IMAGE */
 
 .product-card img{
-
 width:100%;
-
 height:320px;
-
-object-fit:contain;
-
-background:white;
-
-display:block;
-
-padding:0;
-
+object-fit:cover;
 }
 
-
-/* CONTENT */
-
 .product-content{
-
-padding:14px;
-
+padding:15px;
 }
 
 .product-name{
-
-font-size:17px;
-
-font-weight:500;
-
-line-height:1.5;
-
-min-height:72px;
-
-color:#222;
-
+font-size:18px;
+font-weight:600;
+min-height:60px;
 }
-
-
-
-/* PRICE */
 
 .price{
-
 margin-top:12px;
-
-display:flex;
-
-align-items:center;
-
-gap:8px;
-
-flex-wrap:wrap;
-
-}
-
-.old{
-
-color:#777;
-
-font-size:16px;
-
-text-decoration-line:line-through;
-
-text-decoration-color:#c1272d;
-
-text-decoration-thickness:2px;
-
-}
-
-.new{
-
+font-size:22px;
 color:#0b6b31;
-
-font-size:18px;
-
 font-weight:700;
-
 }
 
-.unit{
+.desc{
+margin-top:10px;
+color:#666;
+font-size:14px;
+}
 
-color:#0b6b31;
-
-font-size:16px;
-
+.stock{
+margin-top:12px;
 font-weight:600;
-
 }
 
+.in{
+color:green;
+}
 
-
-/* RESPONSIVE */
+.out{
+color:red;
+}
 
 @media(max-width:1400px){
 
 .product-grid{
-
-grid-template-columns:
-repeat(4,1fr);
-
+grid-template-columns:repeat(4,1fr);
 }
 
 }
@@ -220,10 +92,7 @@ repeat(4,1fr);
 @media(max-width:1000px){
 
 .product-grid{
-
-grid-template-columns:
-repeat(2,1fr);
-
+grid-template-columns:repeat(2,1fr);
 }
 
 }
@@ -231,51 +100,75 @@ repeat(2,1fr);
 @media(max-width:650px){
 
 .product-grid{
-
-grid-template-columns:
-1fr;
-
+grid-template-columns:1fr;
 }
 
 }
+
 </style>
+
 {% endblock %}
+
 
 {% block content %}
 
-
-
 <section class="product-section">
 
-<h1 class="product-title">Poultry - Fresh and Tender</h1>
+<h1 class="product-title">
 
+Poultry - Fresh and Tender
 
+</h1>
 
 <div class="product-grid">
 
-
-
-<a href="#" class="product-link">
+{% for product in products %}
 
 <div class="product-card">
 
-<img src="{% static 'img/poultry/chicken1.jpg' %}">
+{% if product.image %}
+<img src="{{ product.image.url }}">
+{% endif %}
 
 <div class="product-content">
 
 <div class="product-name">
 
-Premium Chicken Drumsticks (Pack of 6)
+{{ product.name }}
 
 </div>
 
 <div class="price">
 
-<span class="old">₹329</span>
+₹{{ product.price }}
 
-<span class="new">₹269</span>
+</div>
 
-<span class="unit">/pack</span>
+<div class="desc">
+
+{{ product.description }}
+
+</div>
+
+<div class="stock">
+
+{% if product.stock > 0 %}
+
+<span class="in">
+
+In Stock ({{ product.stock }})
+
+</span>
+
+{% else %}
+
+<span class="out">
+
+Out of Stock
+
+</span>
+
+{% endif %}
 
 </div>
 
@@ -283,446 +176,14 @@ Premium Chicken Drumsticks (Pack of 6)
 
 </div>
 
-</a>
+{% empty %}
 
+<h2>No Poultry Products Available</h2>
 
-
-
-
-<a href="#" class="product-link">
-
-<div class="product-card">
-
-<img src="{% static 'img/poultry/chicken2.jpeg' %}">
-
-<div class="product-content">
-
-<div class="product-name">
-
-Premium Chicken (Skinless) - Biryani Cut (450g Pack)
-
-</div>
-
-<div class="price">
-
-<span class="old">₹167</span>
-
-<span class="new">₹159</span>
-
-<span class="unit">/pack</span>
-
-</div>
-
-</div>
-
-</div>
-
-</a>
-
-
-
-
-
-<a href="#" class="product-link">
-
-<div class="product-card">
-
-<img src="{% static 'img/poultry/chicken3.jpg' %}">
-
-<div class="product-content">
-
-<div class="product-name">
-
-Premium Chicken (Skinless) - Curry Cut Small Pieces (450g Pack)
-
-</div>
-
-<div class="price">
-
-<span class="old">₹189</span>
-
-<span class="new">₹159</span>
-
-<span class="unit">/pack</span>
-
-</div>
-
-</div>
-
-</div>
-
-</a>
-
-<a href="#" class="product-link">
-
-<div class="product-card">
-
-<img src="{% static 'img/poultry/chicken4.jpeg' %}">
-
-<div class="product-content">
-
-<div class="product-name">
-
-Premium Chicken (Skinless) - Curry Cut  (450g Pack)
-
-</div>
-
-<div class="price">
-
-<span class="old">₹224</span>
-
-<span class="new">₹159</span>
-
-<span class="unit">/pack</span>
-
-</div>
-
-</div>
-
-</div>
-
-</a>
-
-<a href="#" class="product-link">
-
-<div class="product-card">
-
-<img src="{% static 'img/poultry/chicken5.jpeg' %}">
-
-<div class="product-content">
-
-<div class="product-name">
-
-Premium Chicken Drumsticks - Pack of 3
-
-</div>
-
-<div class="price">
-
-<span class="old">₹146</span>
-
-<span class="new">₹139</span>
-
-<span class="unit">/pack</span>
-
-</div>
-
-</div>
-
-</div>
-
-</a>
-
-<a href="#" class="product-link">
-
-<div class="product-card">
-
-<img src="{% static 'img/poultry/chicken6.jpg' %}">
-
-<div class="product-content">
-
-<div class="product-name">
-
-Premium Boneless Chicken Breast - Mini Bites Cubes (250g Pack)
-
-</div>
-
-<div class="price">
-
-<span class="old">₹199</span>
-
-<span class="new">₹191</span>
-
-<span class="unit">/pack</span>
-
-</div>
-
-</div>
-
-</div>
-
-</a>
-
-
-<a href="#" class="product-link">
-
-<div class="product-card">
-
-<img src="{% static 'img/poultry/chicken7.jpg' %}">
-
-<div class="product-content">
-
-<div class="product-name">
-
-Premium Chicken Thigh / Whole Leg - Pack of 2 Pcs
-
-</div>
-
-<div class="price">
-
-<span class="old">₹261</span>
-
-<span class="new">₹249</span>
-
-<span class="unit">/pack</span>
-
-</div>
-
-</div>
-
-</div>
-
-</a>
-
-<a href="#" class="product-link">
-
-<div class="product-card">
-
-<img src="{% static 'img/poultry/chicken8.jpeg' %}">
-
-<div class="product-content">
-
-<div class="product-name">
-
-Premium Chicken Thigh / Whole Leg With Skin - Pack of 2 Pcs
-
-</div>
-
-<div class="price">
-
-<span class="old">₹299</span>
-
-<span class="new">₹249</span>
-
-<span class="unit">/pack</span>
-
-</div>
-
-</div>
-
-</div>
-
-</a>
-
-<a href="#" class="product-link">
-
-<div class="product-card">
-
-<img src="{% static 'img/poultry/chicken9.jpeg' %}">
-
-<div class="product-content">
-
-<div class="product-name">
-
-Premium Chicken Drumsticks with Skin (Pack of 6)
-
-</div>
-
-<div class="price">
-
-<span class="old">₹299</span>
-
-<span class="new">₹289</span>
-
-<span class="unit">/pack</span>
-
-</div>
-
-</div>
-
-</div>
-
-</a>
-
-<a href="#" class="product-link">
-
-<div class="product-card">
-
-<img src="{% static 'img/poultry/chicken10.jpg' %}">
-
-<div class="product-content">
-
-<div class="product-name">
-
-Premium Tender Spring/Tandoori Chicken (1 Whole Bird)
-
-</div>
-
-<div class="price">
-
-<span class="old">₹358</span>
-
-<span class="new">₹299</span>
-
-<span class="unit">/pack</span>
-
-</div>
-
-</div>
-
-</div>
-
-</a>
-
-
-
-
-<a href="#" class="product-link">
-
-<div class="product-card">
-
-<img src="{% static 'img/poultry/chicken11.jpg' %}">
-
-<div class="product-content">
-
-<div class="product-name">
-
-Premium Chicken Tender Spring
-
-</div>
-
-<div class="price">
-
-<span class="old">₹358</span>
-
-<span class="new">₹299</span>
-
-<span class="unit">/pack</span>
-
-</div>
-
-</div>
-
-</div>
-
-</a>
-
-<a href="#" class="product-link">
-
-<div class="product-card">
-
-<img src="{% static 'img/poultry/chicken12.jpg' %}">
-
-<div class="product-content">
-
-<div class="product-name">
-
-Premium Chicken Thigh Boneless
-
-</div>
-
-<div class="price">
-
-<span class="old">₹399</span>
-
-<span class="new">₹299</span>
-
-<span class="unit">/pack</span>
-
-</div>
-
-</div>
-
-</div>
-
-</a>
-
-<a href="#" class="product-link">
-
-<div class="product-card">
-
-<img src="{% static 'img/poultry/chicken13.jpg' %}">
-
-<div class="product-content">
-
-<div class="product-name">
-
-Premium Boneless Chicken - Supreme / Tenderloin (480g to 500g Pack)
-
-</div>
-
-<div class="price">
-
-<span class="old">₹389</span>
-
-<span class="new">₹316</span>
-
-<span class="unit">/pack</span>
-
-</div>
-
-</div>
-
-</div>
-
-</a>
-
-
-<a href="#" class="product-link">
-
-<div class="product-card">
-
-<img src="{% static 'img/poultry/chicken14.jpeg' %}">
-
-<div class="product-content">
-
-<div class="product-name">
-
-Premium Chicken Boneless Breast Fillet (480g Pack)
-
-</div>
-
-<div class="price">
-
-<span class="old">₹399</span>
-
-<span class="new">₹329</span>
-
-<span class="unit">/pack</span>
-
-</div>
-
-</div>
-
-</div>
-
-</a>
-
-<a href="#" class="product-link">
-
-<div class="product-card">
-
-<img src="{% static 'img/poultry/chicken15.jpg' %}">
-
-<div class="product-content">
-
-<div class="product-name">
-
-Premium Chicken boneless cubes
-
-</div>
-
-<div class="price">
-
-<span class="old">₹399</span>
-
-<span class="new">₹329</span>
-
-<span class="unit">/pack</span>
-
-</div>
-
-</div>
-
-</div>
-
-</a>
-
+{% endfor %}
 
 </div>
 
 </section>
 
 {% endblock %}
-
-

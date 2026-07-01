@@ -1,14 +1,189 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>Mutton</title>
-</head>
+{% extends 'base.html' %}
 
-<body>
+{% block title %}
+Mutton- The Fresh Barrel
+{% endblock %}
 
-<h1>Mutton Page</h1>
+{% block extra_css %}
+
+<style>
+
+.product-section{
+width:84%;
+margin:70px auto;
+}
+
+.product-title{
+text-align:center;
+font-size:32px;
+font-weight:700;
+margin-bottom:35px;
+}
+
+.product-grid{
+display:grid;
+grid-template-columns:repeat(5,1fr);
+gap:26px;
+}
+
+.product-card{
+background:white;
+border-radius:12px;
+overflow:hidden;
+border:1px solid #ececec;
+transition:.3s;
+}
+
+.product-card:hover{
+transform:translateY(-5px);
+box-shadow:0 8px 22px rgba(0,0,0,.08);
+}
+
+.product-card img{
+width:100%;
+height:320px;
+object-fit:cover;
+}
+
+.product-content{
+padding:15px;
+}
+
+.product-name{
+font-size:18px;
+font-weight:600;
+min-height:60px;
+}
+
+.price{
+margin-top:12px;
+font-size:22px;
+color:#0b6b31;
+font-weight:700;
+}
+
+.desc{
+margin-top:10px;
+color:#666;
+font-size:14px;
+}
+
+.stock{
+margin-top:12px;
+font-weight:600;
+}
+
+.in{
+color:green;
+}
+
+.out{
+color:red;
+}
+
+@media(max-width:1400px){
+
+.product-grid{
+grid-template-columns:repeat(4,1fr);
+}
+
+}
+
+@media(max-width:1000px){
+
+.product-grid{
+grid-template-columns:repeat(2,1fr);
+}
+
+}
+
+@media(max-width:650px){
+
+.product-grid{
+grid-template-columns:1fr;
+}
+
+}
+
+</style>
+
+{% endblock %}
 
 
+{% block content %}
 
-</body>
-</html>
+<section class="product-section">
+
+<h1 class="product-title">
+
+Fresh Meat (Goat / Lamb)
+
+</h1>
+
+<div class="product-grid">
+
+{% for product in products %}
+
+<div class="product-card">
+
+{% if product.image %}
+<img src="{{ product.image.url }}">
+{% endif %}
+
+<div class="product-content">
+
+<div class="product-name">
+
+{{ product.name }}
+
+</div>
+
+<div class="price">
+
+₹{{ product.price }}
+
+</div>
+
+<div class="desc">
+
+{{ product.description }}
+
+</div>
+
+<div class="stock">
+
+{% if product.stock > 0 %}
+
+<span class="in">
+
+In Stock ({{ product.stock }})
+
+</span>
+
+{% else %}
+
+<span class="out">
+
+Out of Stock
+
+</span>
+
+{% endif %}
+
+</div>
+
+</div>
+
+</div>
+
+{% empty %}
+
+<h2>No Mutton Products Available</h2>
+
+{% endfor %}
+
+</div>
+
+</section>
+
+{% endblock %}

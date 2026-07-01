@@ -1,228 +1,108 @@
 {% extends 'base.html' %}
-{% load static %}
 
-{% block title %}Fresh Barrel Fish{% endblock %}
+{% block title %}
+Fish
+{% endblock %}
 
 {% block content %}
 
 <style>
 
 .product-section{
-
 width:84%;
-
 margin:70px auto;
-
 }
 
 .product-title{
-
 text-align:center;
-
 font-size:32px;
-
-font-weight:700;
-
-color:#202020;
-
-margin-bottom:35px;
-
+margin-bottom:40px;
 }
-
-
-
-/* GRID */
 
 .product-grid{
-
 display:grid;
-
-grid-template-columns:
-repeat(5,1fr);
-
-gap:26px;
-
+grid-template-columns:repeat(5,1fr);
+gap:25px;
 }
-
-
-
-
-/* LINK */
-
-.product-link{
-
-text-decoration:none;
-
-color:inherit;
-
-}
-
-
-/* CARD */
 
 .product-card{
 
 background:white;
 
-border-radius:12px;
+border-radius:15px;
 
 overflow:hidden;
 
-border:1px solid #ececec;
+border:1px solid #eee;
 
-transition:.25s;
-
-height:100%;
-
-}
-
-
-
-/* IMAGE */
-
-.product-card img{
-
-width:100%;
-
-height:320px;
-
-object-fit:contain;
-
-background:white;
-
-display:block;
-
-padding:0;
+transition:.3s;
 
 }
 
 .product-card:hover{
 
-transform:translateY(-4px);
+transform:translateY(-5px);
 
-box-shadow:0 8px 22px rgba(0,0,0,.08);
+box-shadow:0 10px 25px rgba(0,0,0,.1);
 
 }
-
-
-
-
-
-/* IMAGE */
 
 .product-card img{
 
 width:100%;
 
-height:320px;
+height:300px;
 
-object-fit:contain;
-
-background:white;
-
-display:block;
-
-padding:0;
+object-fit:cover;
 
 }
 
-
-/* CONTENT */
-
 .product-content{
 
-padding:14px;
+padding:15px;
 
 }
 
 .product-name{
 
-font-size:17px;
+font-size:18px;
 
-font-weight:500;
+font-weight:600;
 
-line-height:1.5;
-
-min-height:72px;
-
-color:#222;
+margin-bottom:10px;
 
 }
-
-
-
-/* PRICE */
 
 .price{
 
-margin-top:12px;
-
-display:flex;
-
-align-items:center;
-
-gap:8px;
-
-flex-wrap:wrap;
-
-}
-
-.old{
-
-color:#777;
-
-font-size:16px;
-
-text-decoration-line:line-through;
-
-text-decoration-color:#c1272d;
-
-text-decoration-thickness:2px;
-
-}
-
-.new{
+font-size:20px;
 
 color:#0b6b31;
-
-font-size:18px;
 
 font-weight:700;
 
 }
 
-.unit{
+.stock{
 
-color:#0b6b31;
+margin-top:10px;
 
-font-size:16px;
-
-font-weight:600;
+font-size:14px;
 
 }
 
-
-
-/* RESPONSIVE */
-
-@media(max-width:1400px){
-
-.product-grid{
-
-grid-template-columns:
-repeat(4,1fr);
-
+.in{
+color:green;
 }
 
+.out{
+color:red;
 }
 
 @media(max-width:1000px){
 
 .product-grid{
-
-grid-template-columns:
-repeat(2,1fr);
-
+grid-template-columns:repeat(2,1fr);
 }
 
 }
@@ -230,10 +110,7 @@ repeat(2,1fr);
 @media(max-width:650px){
 
 .product-grid{
-
-grid-template-columns:
-1fr;
-
+grid-template-columns:1fr;
 }
 
 }
@@ -241,687 +118,78 @@ grid-template-columns:
 </style>
 
 
-
 <section class="product-section">
 
 <h1 class="product-title">
 
-Marine Fish - Cleaned Options Available
+Fresh Fish Collection
 
 </h1>
 
-
-
 <div class="product-grid">
 
-
-
-<a href="#" class="product-link">
+{% for product in products %}
 
 <div class="product-card">
 
-<img src="{% static 'img/fish/fish1.jpg' %}">
+{% if product.image %}
+<img src="{{ product.image.url }}">
+{% endif %}
 
 <div class="product-content">
 
 <div class="product-name">
 
-Grouper / Reef Cod / Hamour / Muri Meenu
+{{ product.name }}
 
 </div>
 
 <div class="price">
 
-<span class="old">₹504</span>
+₹{{ product.price }}
 
-<span class="new">₹399</span>
-
-<span class="unit">/500g</span>
-
-</div>
-
-</div>
-
-</div>
-
-</a>
-
-
-
-
-
-<a href="#" class="product-link">
-
-<div class="product-card">
-
-<img src="{% static 'img/fish/fish2.jpg' %}">
-
-<div class="product-content">
-
-<div class="product-name">
-
-Marine Milk Fish / Poomeen (Large)
-
-</div>
-
-<div class="price">
-
-<span class="old">₹456</span>
-
-<span class="new">₹399</span>
-
-<span class="unit">/500g</span>
-
-</div>
-
-</div>
-
-</div>
-
-</a>
-
-
-
-
-
-<a href="#" class="product-link">
-
-<div class="product-card">
-
-<img src="{% static 'img/fish/fish3.jpg' %}">
-
-<div class="product-content">
-
-<div class="product-name">
-
-Black King Fish / Motha / Cobia
-
-</div>
-
-<div class="price">
-
-{% comment %} <span class="old">₹625</span> {% endcomment %}
-
-<span class="new">₹649</span>
-
-<span class="unit">/500g</span>
-
-</div>
-
-</div>
-
-</div>
-
-</a>
-
-
-
-
-
-<a href="#" class="product-link">
-
-<div class="product-card">
-
-<img src="{% static 'img/fish/fish4.jpg' %}">
-
-<div class="product-content">
-
-<div class="product-name">
-
-Pony Fish / Mullan
-
-</div>
-
-<div class="price">
-
-<span class="old">₹432</span>
-
-<span class="new">₹249</span>
-
-<span class="unit">/500g</span>
-
-</div>
-
-</div>
-
-</div>
-
-</a>
-
-
-
-
-
-<a href="#" class="product-link">
-
-<div class="product-card">
-
-<img src="{% static 'img/fish/fish5.jpg' %}">
-
-<div class="product-content">
-
-<div class="product-name">
-
-Marine Sole Fish / Manthal / Repti
-
-</div>
-
-<div class="price">
-
-<span class="old">₹400</span>
-
-<span class="new">₹349</span>
-
-<span class="unit">/500g</span>
-
-</div>
-
-</div>
-
-</div>
-
-</a>
-
-
-
-<a href="#" class="product-link">
-
-<div class="product-card">
-
-<img src="{% static 'img/fish/fish6.jpg' %}">
-
-<div class="product-content">
-
-<div class="product-name">
-
-Ribbon Fish / Vaala / Thalayan
-
-</div>
-
-<div class="price">
-
-<span class="old">₹296</span>
-
-<span class="new">₹219</span>
-
-<span class="unit">/500g</span>
-
-</div>
-
-</div>
-
-</div>
-
-</a>
-
-
-
-<a href="#" class="product-link">
-
-<div class="product-card">
-
-<img src="{% static 'img/fish/fish7.jpg' %}">
-
-<div class="product-content">
-
-<div class="product-name">
-
-Sword Fish
-
-</div>
-
-<div class="price">
-
-<span class="old">₹348</span>
-
-<span class="new">₹299</span>
-
-<span class="unit">/500g</span>
-
-</div>
-
-</div>
-
-</div>
-
-</a>
-
-
-
-
-<a href="#" class="product-link">
-
-<div class="product-card">
-
-<img src="{% static 'img/fish/fish8.jpg' %}">
-
-<div class="product-content">
-
-<div class="product-name">
-
-Trevally / Vatta/ Shitap / Parai
-
-</div>
-
-<div class="price">
-
-<span class="old">₹449</span>
-
-<span class="new">₹244</span>
-
-<span class="unit">/500g</span>
-
-</div>
-
-</div>
-
-</div>
-
-</a>
-
-
-
-
-<a href="#" class="product-link">
-
-<div class="product-card">
-
-<img src="{% static 'img/fish/fish9.jpg' %}">
-
-<div class="product-content">
-
-<div class="product-name">
-
-Leather Jacket
-
-</div>
-
-<div class="price">
-
-<span class="old">₹404</span>
-
-<span class="new">₹222</span>
-
-<span class="unit">/500g</span>
-
-</div>
-
-</div>
-
-</div>
-
-</a>
-
-
-
-
-<a href="#" class="product-link">
-
-<div class="product-card">
-
-<img src="{% static 'img/fish/fish10.jpg' %}">
-
-<div class="product-content">
-
-<div class="product-name">
-
-Seer Fish / King Fish / Surmai / Vanjaram
-
-</div>
-
-<div class="price">
-
-<span class="old">₹1320</span>
-
-<span class="new">₹874</span>
-
-<span class="unit">/500g</span>
-
-</div>
-
-</div>
-
-</div>
-
-</a>
-
-
-
-
-<a href="#" class="product-link">
-
-<div class="product-card">
-
-<img src="{% static 'img/fish/fish11.jpg' %}">
-
-<div class="product-content">
-
-<div class="product-name">
-
-Sail Fish / Ola Meen 
-
-</div>
-
-<div class="price">
-
-<span class="old">₹384</span>
-
-<span class="new">₹299</span>
-
-<span class="unit">/500g</span>
-
-</div>
-
-</div>
-
-</div>
-
-</a>
-
-
-
-<a href="#" class="product-link">
-
-<div class="product-card">
-
-<img src="{% static 'img/fish/fish12.jpg' %}">
-
-<div class="product-content">
-
-<div class="product-name">
-
-Large Marine Catfish / Etta Koori
-
-</div>
-
-<div class="price">
-
-<span class="old">₹399</span>
-
-<span class="new">₹294</span>
-
-<span class="unit">/500g</span>
-
-</div>
-
-</div>
-
-</div>
-
-</a>
-
-
-
-<a href="#" class="product-link">
-
-<div class="product-card">
-
-<img src="{% static 'img/fish/fish13.jpg' %}">
-
-<div class="product-content">
-
-<div class="product-name">
-
-Black Snapper / Karipetti 
-
-</div>
-
-<div class="price">
-
-<span class="old">₹472</span>
-
-<span class="new">₹349</span>
-
-<span class="unit">/500g</span>
-
-</div>
-
-</div>
-
-</div>
-
-</a>
-
-
-
-
-<a href="#" class="product-link">
-
-<div class="product-card">
-
-<img src="{% static 'img/fish/fish14.jpeg' %}">
-
-<div class="product-content">
-
-<div class="product-name">
-
-Eel / Mananjil
-
-</div>
-
-<div class="price">
-
-<span class="old">₹656</span>
-
-<span class="new">₹299</span>
-
-<span class="unit">/500g</span>
-
-</div>
-
-</div>
-
-</div>
-
-</a>
-
-
-
-<a href="#" class="product-link">
-
-<div class="product-card">
-
-<img src="{% static 'img/fish/fish15.jpg' %}">
-
-<div class="product-content">
-
-<div class="product-name">
-
-Delicious Stingray / Thirandi
-
-</div>
-
-<div class="price">
-
-<span class="old">₹394</span>
-
-<span class="new">₹249</span>
-
-<span class="unit">/500g</span>
-
-</div>
-
-</div>
-
-</div>
-
-</a>
-
-
-
-
-
-<a href="#" class="product-link">
-
-<div class="product-card">
-
-<img src="{% static 'img/fish/fish16.jpg' %}">
-
-<div class="product-content">
-
-<div class="product-name">
-
-Horse Mackerel / Ayala Para / Vankada
-
-</div>
-
-<div class="price">
-
-<span class="old">₹408</span>
-
-<span class="new">₹149</span>
-
-<span class="unit">/500g</span>
-
-</div>
-
-</div>
-
-</div>
-
-</a>
-
-
-
-
-
-<a href="#" class="product-link">
-
-<div class="product-card">
-
-<img src="{% static 'img/fish/fish17.jpg' %}">
-
-<div class="product-content">
-
-<div class="product-name">
-
-Shark
-
-</div>
-
-<div class="price">
-
-<span class="old">₹499</span>
-
-<span class="new">₹384</span>
-
-<span class="unit">/500g</span>
-
-</div>
-
-</div>
-
 </div>
 
-</a>
+<p>
 
+{{ product.description }}
 
+</p>
 
+<div class="stock">
 
+{% if product.stock > 0 %}
 
+<span class="in">
 
-<a href="#" class="product-link">
+In Stock ({{ product.stock }})
 
-<div class="product-card">
+</span>
 
-<img src="{% static 'img/fish/fish18.jpg' %}">
+{% else %}
 
-<div class="product-content">
+<span class="out">
 
-<div class="product-name">
+Out of Stock
 
-White Pomfret / Silver Pomfret / Avoli
+</span>
 
-</div>
-
-<div class="price">
-
-<span class="old">₹1249</span>
-
-<span class="new">₹744</span>
-
-<span class="unit">/500g</span>
-
-</div>
-
-</div>
-
-</div>
-
-</a>
-
-
-
-
-
-<a href="#" class="product-link">
-
-<div class="product-card">
-
-<img src="{% static 'img/fish/fish19.jpg' %}">
-
-<div class="product-content">
-
-<div class="product-name">
-
-Silver Trevally / Kannadi Vatta
-
-</div>
-
-<div class="price">
-
-<span class="old">₹484</span>
+{% endif %}
 
-<span class="new">₹249</span>
-
-<span class="unit">/500g</span>
-
-</div>
-
-</div>
-
-</div>
-
-</a>
-
-
-
-
-
-<a href="#" class="product-link">
-
-<div class="product-card">
-
-<img src="{% static 'img/fish/fish20.jpg' %}">
-
-<div class="product-content">
-
-<div class="product-name">
-
-Grey Mullet / Thirutha/ Bhangor 
-
 </div>
 
-<div class="price">
-
-<span class="old">₹408</span>
-
-<span class="new">₹299</span>
-
-<span class="unit">/500g</span>
-
-</div>
-
 </div>
 
 </div>
-
-</a>
 
+{% empty %}
 
+<h3>No fish products available</h3>
 
+{% endfor %}
 
 </div>
 
 </section>
+
 {% endblock %}

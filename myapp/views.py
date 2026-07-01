@@ -3,15 +3,58 @@ from django.shortcuts import render
 def home(request):
     return render(request, 'home.html')
 
-def fish(request): 
-    return render(request, "fish.html")
+from django.shortcuts import render
+from .models import Product
+
+
+def fish(request):
+
+    products = Product.objects.filter(
+        category__name='Fish'
+    )
+
+    return render(
+        request,
+        'fish.html',
+        {
+            'products': products
+        }
+    )
+
+
+
+
+from django.shortcuts import render
+from .models import Product
+
 
 def poultry(request):
-    return render(request,"poultry.html")
+
+    products = Product.objects.filter(
+        category__name__iexact='Poultry'
+    )
+
+    return render(
+        request,
+        'poultry.html',
+        {
+            'products': products
+        }
+    )
 
 def mutton(request):
-    return render(request,"mutton.html")
 
+    products = Product.objects.filter(
+        category__name='Mutton'
+    )
+
+    return render(
+        request,
+        'mutton.html',
+        {
+            'products': products
+        }
+    )
 def faq(request):
     return render(request, 'faq.html')
 
