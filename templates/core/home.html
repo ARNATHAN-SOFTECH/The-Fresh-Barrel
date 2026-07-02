@@ -1,0 +1,415 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+THE FRESH BARREL
+{% endblock %}
+
+{% block extra_css %}
+<style>
+
+/* BANNER */
+
+.banner{
+
+width:85%;
+
+height:520px;
+
+margin:35px auto;
+
+overflow:hidden;
+
+border-radius:20px;
+
+box-shadow:0 10px 30px rgba(0,0,0,.15);
+
+}
+
+.slider{
+
+display:flex;
+
+height:100%;
+
+animation:slide 9s ease-in-out infinite;
+
+}
+
+.slide{
+
+min-width:100%;
+
+height:100%;
+
+position:relative;
+
+}
+
+.slide img{
+
+width:100%;
+
+height:100%;
+
+object-fit:cover;
+
+filter:brightness(60%);
+
+}
+
+
+
+/* BANNER TEXT */
+
+.banner-text{
+
+position:absolute;
+
+top:50%;
+
+left:90px;
+
+transform:translateY(-50%);
+
+color:white;
+
+max-width:550px;
+
+}
+
+.banner-text h1{
+
+font-size:58px;
+
+margin-bottom:20px;
+
+line-height:1.1;
+
+}
+
+.banner-text p{
+
+font-size:22px;
+
+line-height:1.8;
+
+margin-bottom:35px;
+
+}
+
+.btn-shop{
+    display:inline-block;
+    padding:16px 38px;
+    background:#0b4426;
+    color:white;
+    text-decoration:none;
+    border-radius:8px;
+    font-size:18px;
+}
+
+.btn-shop:hover{
+    background:#145a32;
+    color:white;
+}
+
+
+
+/* SLIDER */
+
+@keyframes slide{
+
+0%,30%{
+transform:translateX(0%);
+}
+
+33%,63%{
+transform:translateX(-100%);
+}
+
+66%,96%{
+transform:translateX(-200%);
+}
+
+100%{
+transform:translateX(0%);
+}
+
+}
+
+
+
+/* TITLE */
+
+.title{
+
+text-align:center;
+
+font-size:42px;
+
+color:#0b4426;
+
+margin-bottom:50px;
+
+}
+
+
+
+/* CARDS */
+
+.cards{
+
+display:flex;
+
+justify-content:center;
+
+gap:35px;
+
+padding-bottom:80px;
+
+}
+
+.card{
+
+width:340px;
+
+background:white;
+
+border-radius:20px;
+
+overflow:hidden;
+
+box-shadow:0 6px 20px rgba(0,0,0,.08);
+
+transition:.4s;
+
+}
+
+.card:hover{
+
+transform:translateY(-10px);
+
+}
+
+.card img{
+
+width:100%;
+
+height:240px;
+
+object-fit:cover;
+
+}
+
+.content{
+
+padding:25px;
+
+}
+
+.content h2{
+
+color:#0b4426;
+
+margin-bottom:15px;
+
+}
+
+.content p{
+
+line-height:1.8;
+
+color:#666;
+
+}
+
+.content button{
+
+margin-top:20px;
+
+padding:14px 30px;
+
+background:#0b4426;
+
+color:white;
+
+border:none;
+
+border-radius:8px;
+
+}
+
+
+
+
+
+
+/* RESPONSIVE */
+
+@media(max-width:900px){
+
+
+.cards{
+
+flex-direction:column;
+
+align-items:center;
+
+}
+
+.banner-text{
+
+left:35px;
+
+}
+
+.banner-text h1{
+
+font-size:40px;
+
+}
+
+.banner-text p{
+
+font-size:18px;
+
+}
+
+}
+
+</style>
+{% endblock %}
+
+{% block content %}
+
+
+
+<!-- BANNER -->
+
+<div class="banner">
+
+<div class="slider">
+
+
+
+<div class="slide">
+
+<img src="{% static 'img/banner1.jpeg' %}">
+
+<div class="banner-text">
+
+<h1>Fresh Fish Delivered Daily</h1>
+
+<p>
+Premium seafood delivered fresh and packed hygienically.
+</p>
+
+<a href="{% url 'category_products' 1 %}" class="btn-shop">
+    Shop Fish
+</a>
+
+</div>
+
+</div>
+
+
+
+<div class="slide">
+
+<img src="{% static 'img/banner2.jpg' %}">
+
+<div class="banner-text">
+
+<h1>Premium Poultry Collection</h1>
+
+<p>
+Farm fresh poultry with unmatched quality and taste.
+</p>
+
+<a href="{% url 'category_products' 2 %}" class="btn-shop">
+    Shop Poultry
+</a>
+
+</div>
+
+</div>
+
+
+
+<div class="slide">
+
+<img src="{% static 'img/banner3.jpg' %}">
+
+<div class="banner-text">
+
+<h1>Fresh Cut Mutton</h1>
+
+<p>
+Premium cuts selected and delivered at peak freshness.
+</p>
+
+<a href="{% url 'category_products' 3 %}" class="btn-shop">
+    Shop Mutton
+</a>
+
+</div>
+
+</div>
+
+
+
+</div>
+
+</div>
+
+
+
+<div class="title">
+
+Fresh Delivered Daily
+
+</div>
+
+<div class="cards">
+
+    {% for category in categories %}
+
+    <a href="{% url 'category_products' category.id %}"
+       style="text-decoration:none;color:inherit;">
+
+        <div class="card">
+
+            {% if category.image %}
+                <img src="{{ category.image.url }}"
+                     alt="{{ category.name }}">
+            {% else %}
+                <img src="{% static 'img/no-image.jpg' %}"
+                     alt="No Image">
+            {% endif %}
+
+            <div class="content">
+
+                <h2>{{ category.name }}</h2>
+
+                <p>
+                    Fresh premium quality {{ category.name|lower }}
+                    delivered to your doorstep.
+                </p>
+
+                <span class="btn-shop">
+                    Explore
+                </span>
+
+            </div>
+
+        </div>
+
+    </a>
+
+    {% endfor %}
+
+</div>
+
+
+
+{% endblock %}

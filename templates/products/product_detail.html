@@ -1,0 +1,271 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+
+.product-detail{
+    width:90%;
+    max-width:1200px;
+    margin:60px auto;
+    display:grid;
+    grid-template-columns:500px 1fr;
+    gap:60px;
+    align-items:start;
+}
+
+.product-image img{
+    width:100%;
+    height:500px;
+    object-fit:cover;
+    border-radius:15px;
+    box-shadow:0 4px 20px rgba(0,0,0,0.1);
+}
+
+.product-info h1{
+    font-size:40px;
+    font-weight:700;
+    color:#222;
+    margin-bottom:15px;
+    text-transform:capitalize;
+}
+
+.weight{
+    color:#666;
+    font-size:20px;
+    margin-bottom:25px;
+}
+
+.price{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    margin-bottom:25px;
+}
+
+.old-price{
+    text-decoration:line-through;
+    color:#999;
+    font-size:28px;
+}
+
+.new-price{
+    color:#0b6b31;
+    font-size:46px;
+    font-weight:700;
+}
+
+.description{
+    font-size:18px;
+    color:#444;
+    line-height:1.9;
+    margin-bottom:35px;
+}
+
+.cart-controls{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-top:20px;
+}
+
+.qty-btn{
+    width:50px;
+    height:50px;
+    border:none;
+    background:#f3f3f3;
+    border-radius:8px;
+    font-size:28px;
+    font-weight:600;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.qty-btn:hover{
+    background:#e5e5e5;
+}
+
+.qty-input{
+    width:70px;
+    height:50px;
+    text-align:center;
+    border:1px solid #ddd;
+    border-radius:8px;
+    font-size:20px;
+    font-weight:600;
+}
+
+.add-btn{
+    height:50px;
+    padding:0 35px;
+    background:#0b6b31;
+    color:white;
+    border:none;
+    border-radius:8px;
+    font-size:17px;
+    font-weight:600;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.add-btn:hover{
+    background:#095326;
+}
+
+.stock{
+    margin-top:20px;
+    color:#0b6b31;
+    font-weight:600;
+    font-size:18px;
+}
+
+.total-price{
+    margin-top:20px;
+    font-size:22px;
+    font-weight:700;
+    color:#222;
+}
+
+@media(max-width:900px){
+
+    .product-detail{
+        grid-template-columns:1fr;
+        gap:30px;
+    }
+
+    .product-image img{
+        height:350px;
+    }
+
+    .product-info h1{
+        font-size:30px;
+    }
+
+    .new-price{
+        font-size:36px;
+    }
+
+    .cart-controls{
+        flex-wrap:wrap;
+    }
+}
+
+</style>
+
+<div class="product-detail">
+
+    <div class="product-image">
+
+        <img src="{{ product.image.url }}"
+             alt="{{ product.name }}">
+
+    </div>
+
+    <div class="product-info">
+
+        <h1>{{ product.name }}</h1>
+
+        <div class="weight">
+            Net Weight: {{ product.weight }}
+        </div>
+
+        <div class="price">
+
+            <span class="old-price">
+                ₹{{ product.original_price }}
+            </span>
+
+            <span class="new-price">
+                ₹{{ product.selling_price }}
+            </span>
+
+        </div>
+
+        <div class="description">
+            {{ product.description }}
+        </div>
+
+        <div class="cart-controls">
+
+            <button
+                type="button"
+                class="qty-btn"
+                onclick="decreaseQty()">
+                −
+            </button>
+
+            <input
+                type="text"
+                id="qty"
+                value="1"
+                readonly
+                class="qty-input"
+            >
+
+            <button
+                type="button"
+                class="qty-btn"
+                onclick="increaseQty()">
+                +
+            </button>
+
+<form action="{% url 'add_to_cart' product.id %}" method="POST">
+    {% csrf_token %}
+
+    <input
+        type="hidden"
+        id="quantity"
+        name="quantity"
+        value="1"
+    >
+
+    <button type="submit" class="add-btn">
+        Add To Cart
+    </button>
+</form>
+
+        </div>
+
+        <div class="total-price">
+            Total Price:
+            ₹<span id="totalPrice">{{ product.selling_price }}</span>
+        </div>
+
+        <div class="stock">
+            In Stock : {{ product.stock }}
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+function increaseQty(){
+
+    let qty = document.getElementById("qty");
+
+    qty.value = parseInt(qty.value) + 1;
+
+    document.getElementById("quantity").value = qty.value;
+
+    updateTotalPrice();
+}
+
+function decreaseQty(){
+
+    let qty = document.getElementById("qty");
+
+    if(parseInt(qty.value) > 1){
+
+        qty.value = parseInt(qty.value) - 1;
+
+        document.getElementById("quantity").value = qty.value;
+
+        updateTotalPrice();
+    }
+}
+
+</script>
+
+{% endblock %}

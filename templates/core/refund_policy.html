@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+
+{% block title %}Refund Policy - The Fresh Barrel{% endblock %}
+
+{% block content %}
+
+<style>
+.refund-section{
+    background:#f8f8f8;
+    padding:60px 0;
+}
+
+.refund-card{
+    background:#fff;
+    padding:50px;
+    border-radius:15px;
+    box-shadow:0 2px 10px rgba(0,0,0,.05);
+}
+
+.refund-title{
+    color:#5c2f2f;
+    font-size:3rem;
+    margin-bottom:10px;
+}
+
+.refund-card h2{
+    color:#5c2f2f;
+    margin-top:30px;
+}
+
+.refund-card p,
+.refund-card li{
+    line-height:1.8;
+    color:#444;
+}
+
+.info-box{
+    background:#f7f3ee;
+    border-left:4px solid #c97a2a;
+    padding:20px;
+    border-radius:8px;
+    margin:20px 0;
+}
+
+@media(max-width:768px){
+    .refund-card{
+        padding:25px;
+    }
+
+    .refund-title{
+        font-size:2rem;
+    }
+}
+</style>
+
+<section class="refund-section">
+    <div class="container">
+
+        <div class="refund-card">
+
+            <h1 class="refund-title">Refund Policy</h1>
+
+            <p>
+                At Fresh Barrel, customer satisfaction is our priority.
+                If you receive a damaged, incorrect, or quality-related product,
+                please contact us within 24 hours of delivery.
+            </p>
+
+            <h2>Online Payment Orders</h2>
+
+            <div class="info-box">
+                Refunds will be processed within <strong>48 hours</strong> and
+                credited to the customer's bank account within
+                <strong>5–7 working days</strong>, depending on the issuing bank.
+            </div>
+
+            <h2>Cash on Delivery Orders</h2>
+
+            <div class="info-box">
+                Refunds for Cash on Delivery orders will be issued as
+                <strong>Store Credit</strong>. The credited amount can be used
+                for future purchases on Fresh Barrel.
+            </div>
+
+            <h2>Refund Eligibility</h2>
+
+            <ul>
+                <li>Damaged products received.</li>
+                <li>Incorrect product delivered.</li>
+                <li>Quality concerns reported within 24 hours.</li>
+                <li>Order cancelled before processing.</li>
+            </ul>
+
+            <h2>Non-Refundable Situations</h2>
+
+            <ul>
+                <li>Products not stored properly after delivery.</li>
+                <li>Complaints reported after 24 hours of delivery.</li>
+                <li>Issues caused by incorrect customer information.</li>
+            </ul>
+
+            <h2>Contact Support</h2>
+
+            <p>
+                For refund-related assistance, contact us at:
+                <br><br>
+                Email: thefreshbarrel@gmail.com
+                <br>
+                Phone: +91 XXXXX XXXXX
+            </p>
+
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

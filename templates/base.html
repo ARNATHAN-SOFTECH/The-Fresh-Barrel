@@ -1,0 +1,420 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}The Fresh Barrel{% endblock %}</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial,sans-serif;
+        }
+
+        body{
+            background:#f4f8f5;
+        }
+        
+        :root{
+          --primary: #0b4426;
+          --secondary: #5c2f2f;
+        }
+
+        /* TOP BAR */
+
+        .topbar{
+
+        background:var(--primary);
+
+        color:white;
+
+        padding:12px 80px;
+
+        display:flex;
+
+        justify-content:space-between;
+
+        }
+
+
+
+        /* HEADER */
+
+        .header{
+
+        background:white;
+
+        padding:20px 80px;
+
+        display:flex;
+
+        justify-content:space-between;
+
+        align-items:center;
+
+        box-shadow:0 3px 15px rgba(0,0,0,.08);
+
+        }
+
+        .logo img{
+
+        height:80px;
+
+        }
+
+        .search{
+
+        width:55%;
+
+        }
+
+        .search input{
+
+        width:100%;
+
+        padding:16px;
+
+        border:2px solid var(--primary);
+
+        border-radius:10px;
+
+        outline:none;
+
+        font-size:16px;
+
+        }
+
+        /* CART */
+
+        .cart-link{
+            position:relative;
+            text-decoration:none;
+            color:#222;
+            font-weight:600;
+        }
+
+        .cart-badge{
+            position:absolute;
+            top:-10px;
+            right:-15px;
+            background:#e53935;
+            color:white;
+            width:22px;
+            height:22px;
+            border-radius:50%;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            font-size:12px;
+            font-weight:bold;
+        }
+
+        /* MENU */
+
+        .menu{
+
+        background:var(--primary);
+
+        padding:18px;
+
+        display:flex;
+
+        justify-content:center;
+
+        gap:60px;
+
+        }
+
+        .menu a{
+
+        color:white;
+
+        text-decoration:none;
+
+        font-size:20px;
+
+        }
+
+        .menu a:hover{
+
+        color:#90ee90;
+
+        }
+
+        /* FOOTER */
+        footer{
+            background:#f7f7f7;
+            margin-top:60px;
+        }
+
+        .footer-top{
+            display:grid;
+            grid-template-columns:1fr 2fr 1fr;
+            gap:40px;
+            padding:40px 80px;
+            border-top:1px solid #ddd;
+            border-bottom:1px solid #ddd;
+        }
+
+        .footer-logo img{
+          height:80px;
+          margin-bottom:20px;
+        }
+
+        .footer-top p{
+            margin-top:10px;
+            line-height:1.8;
+        }
+
+        .footer-links{
+            text-align:center;
+            font-size:14px;
+        }
+
+        .footer-links a{
+            text-decoration:none;
+            color:#444;
+            margin:0 10px;
+        }
+
+        .contact{
+            text-align:center;
+        }
+
+        .contact-title{
+            color:var(--secondary);
+            margin-bottom:20px;
+            font-size:24px;
+        }
+
+        .contact p{
+            margin-bottom:12px;
+            color:#555;
+            font-size:15px;
+        }
+
+        .contact p i{
+            color:var(--secondary);
+            margin-right:8px;
+        }
+
+        .social-icons{
+            margin-top:25px;
+        }
+
+        .social-icons a{
+            width:42px;
+            height:42px;
+            display:inline-flex;
+            align-items:center;
+            justify-content:center;
+            background:var(--secondary);
+            color:white;
+            border-radius:50%;
+            margin:0 5px;
+            text-decoration:none;
+            transition:.3s;
+        }
+
+        .social-icons a:hover{
+            transform:translateY(-3px);
+            background:white;
+            color: var(--secondary);
+        }
+        .cities{
+            padding:40px 80px;
+            display:grid;
+            grid-template-columns:repeat(6,1fr);
+            gap:10px;
+            font-size:15px;
+            color:#555;
+        }
+
+        .copyright{
+            text-align:center;
+            padding:15px;
+            border-top:1px solid #ddd;
+        }
+
+        @media(max-width:768px){
+
+          .header{
+
+            flex-direction:column;
+
+            gap:20px;
+
+            }
+
+            .search{
+
+            width:100%;
+
+            }
+
+            .footer-top{
+                grid-template-columns:1fr;
+                padding:20px;
+                text-align:center;
+            }
+
+            .cities{
+                grid-template-columns:repeat(2,1fr);
+                padding:20px;
+            }
+        }
+    </style>
+
+    {% block extra_css %}
+    {% endblock %}
+
+</head>
+
+<body>
+
+  <div class="topbar">
+
+<div>📞 1800-313-3302</div>
+
+<div>THE FRESH BARREL</div>
+
+</div>
+
+
+
+<div class="header">
+
+<div class="logo">
+    <a href="{% url 'home' %}">
+        <img src="{% static 'img/logo.jpeg' %}" alt="The Fresh Barrel Logo">
+    </a>
+</div>
+
+
+<div class="search">
+
+<input
+type="text"
+placeholder="Search fresh products">
+
+</div>
+
+<div class="cart">
+            <a href="{% url 'cart' %}" class="cart-link">
+
+                <i class="fa-solid fa-cart-shopping"></i>
+
+
+                {% if cart_count %}
+                    <span class="cart-badge">
+                        {{ cart_count }}
+                    </span>
+                {% endif %}
+
+            </a>
+
+</div>
+
+</div>
+
+
+
+<div class="menu">
+
+<a href="{% url 'category_products' 1 %}">Fish & Seafood</a>
+
+<a href="{% url 'category_products' 2 %}">Poultry</a>
+
+<a href="{% url 'category_products' 3 %}">Mutton</a>
+
+</div>
+
+{% block content %}
+
+{% endblock %}
+
+<footer>
+
+    <div class="footer-top">
+
+        <div>
+            <div class="footer-logo">
+
+              <img src="{% static 'img/logo.jpeg' %}" alt="logo">
+
+            </div>
+            <p>
+                The Fresh Barrel Pvt Ltd<br>
+                Kerala, India
+            </p>
+        </div>
+
+        <div class="footer-links">
+            <a href="{% url 'faq' %}">FAQ</a>
+            <a href="{% url 'blog' %}">Blog</a>
+            <a href="{% url 'terms_conditions' %}">Terms & Conditions</a>
+            <a href="{% url 'privacy_policy' %}">Privacy Policy</a>
+            <a href="{% url 'refund_policy' %}">Refund Policy</a>
+            <a href="{% url 'contact_us' %}">Contact Us</a>
+        </div>
+
+        <div class="contact">
+
+    <h3 class="contact-title">Contact Us</h3>
+
+    <p>
+        <i class="fa-solid fa-phone"></i>
+        1800-313-3302
+    </p>
+
+    <p>
+        <i class="fa-solid fa-envelope"></i>
+        thefreshbarrel@gmail.com
+    </p>
+
+    <p>
+        <i class="fa-solid fa-clock"></i>
+        Mon - Sun : 8 AM - 8 PM
+    </p>
+
+    <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-youtube"></i></a>
+    </div>
+
+</div>    </div>
+
+    <div class="cities">
+        <div>Kochi</div>
+        <div>Trivandrum</div>
+        <div>Kozhikode</div>
+        <div>Thrissur</div>
+        <div>Kottayam</div>
+        <div>Kannur</div>
+        <div>Palakkad</div>
+        <div>Malappuram</div>
+        <div>Alappuzha</div>
+        <div>Kollam</div>
+        <div>Idukki</div>
+        <div>Kasaragod</div>
+    </div>
+
+    <div class="copyright">
+        © {% now "Y" %} The Fresh Barrel. All Rights Reserved.
+    </div>
+
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+{% block extra_js %}
+{% endblock %}
+
+</body>
+</html>

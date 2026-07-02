@@ -1,0 +1,218 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Terms & Conditions - The Fresh Barrel{% endblock %}
+
+{% block content %}
+
+<style>
+    .terms-section {
+        background: #f8f8f8;
+        padding: 60px 0;
+    }
+
+    .terms-container {
+        background: #fff;
+        border-radius: 15px;
+        padding: 50px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    .terms-title {
+        color: #5c2f2f;
+        font-size: 3rem;
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+
+    .last-updated {
+        color: #777;
+        margin-bottom: 40px;
+    }
+
+    .terms-container h2 {
+        color: #5c2f2f;
+        font-size: 1.5rem;
+        margin-top: 35px;
+        margin-bottom: 15px;
+        font-weight: 600;
+    }
+
+    .terms-container p,
+    .terms-container li {
+        color: #444;
+        font-size: 16px;
+        line-height: 1.8;
+    }
+
+    .terms-container ul {
+        padding-left: 20px;
+    }
+
+    .contact-box {
+        background: #f7f3ee;
+        border-left: 4px solid #c97a2a;
+        padding: 20px;
+        margin-top: 20px;
+        border-radius: 8px;
+    }
+
+    @media(max-width:768px){
+        .terms-container{
+            padding:25px;
+        }
+
+        .terms-title{
+            font-size:2rem;
+        }
+    }
+</style>
+
+<section class="terms-section">
+    <div class="container">
+
+        <div class="terms-container">
+
+            <h1 class="terms-title">Terms & Conditions</h1>
+            <p class="last-updated">Last Updated: June 2026</p>
+
+            <p>
+                Welcome to The Fresh Barrel. By accessing or using our website,
+                mobile application, or services, you agree to comply with and
+                be bound by these Terms & Conditions.
+            </p>
+
+            <h2>1. Introduction</h2>
+            <p>
+                The Fresh Barrel is an online platform providing fresh meat,
+                seafood, poultry, and related products. These Terms &
+                Conditions govern your use of our platform and services.
+            </p>
+
+            <h2>2. Eligibility</h2>
+            <ul>
+                <li>You must be at least 18 years old.</li>
+                <li>You must be legally capable of entering into a contract.</li>
+                <li>You must provide accurate information while registering.</li>
+            </ul>
+
+            <h2>3. Account Registration</h2>
+            <p>
+                Customers are responsible for maintaining the confidentiality
+                of their account credentials and for all activities occurring
+                under their account.
+            </p>
+
+            <h2>4. Products and Availability</h2>
+            <ul>
+                <li>Product availability depends on stock levels.</li>
+                <li>Images are for illustration purposes only.</li>
+                <li>Actual product appearance, weight, and packaging may vary.</li>
+                <li>Fresh products may naturally vary in size and weight.</li>
+            </ul>
+
+            <h2>5. Pricing</h2>
+            <p>
+                All prices are displayed in Indian Rupees (INR). Applicable
+                taxes, delivery charges, and handling fees may be added during
+                checkout.
+            </p>
+
+            <h2>6. Orders</h2>
+            <p>
+                Fresh Barrel reserves the right to accept, reject, or cancel
+                orders due to stock shortages, pricing errors, payment issues,
+                or suspected fraudulent activity.
+            </p>
+
+            <h2>7. Delivery</h2>
+            <p>
+                We strive to deliver orders within the selected delivery slot.
+                However, delays may occur due to weather conditions, traffic,
+                technical issues, or other circumstances beyond our control.
+            </p>
+
+            <h2>8. Order Cancellation</h2>
+            <p>
+                Orders may be cancelled before processing begins. Once an order
+                has entered processing or dispatch, cancellation may not be
+                possible.
+            </p>
+
+            <h2>9. Returns & Refunds</h2>
+            <p>
+                Customers may report damaged, incorrect, or quality-related
+                issues within 24 hours of delivery.
+            </p>
+
+            <ul>
+                <li>Replacement of product</li>
+                <li>Refund to original payment method</li>
+                <li>Store credit where applicable</li>
+            </ul>
+
+            <h2>10. Food Safety & Storage</h2>
+            <p>
+                Customers are responsible for following proper storage
+                instructions after delivery. Fresh Barrel is not liable for
+                deterioration caused by improper storage.
+            </p>
+
+            <h2>11. Customer Conduct</h2>
+            <ul>
+                <li>Do not violate applicable laws.</li>
+                <li>Do not misuse the platform.</li>
+                <li>Do not attempt unauthorized access.</li>
+                <li>Do not upload malicious content or software.</li>
+            </ul>
+
+            <h2>12. Intellectual Property</h2>
+            <p>
+                All website content including logos, images, product
+                descriptions, designs, and graphics are the property of
+                Fresh Barrel and protected by applicable intellectual
+                property laws.
+            </p>
+
+            <h2>13. Privacy</h2>
+            <p>
+                Customer information is handled according to our Privacy
+                Policy. We do not sell customer information to third parties.
+            </p>
+
+            <h2>14. Limitation of Liability</h2>
+            <p>
+                Fresh Barrel shall not be liable for indirect, incidental,
+                consequential, or special damages arising from the use of
+                our products or services.
+            </p>
+
+            <h2>15. Changes to Terms</h2>
+            <p>
+                Fresh Barrel reserves the right to update these Terms &
+                Conditions at any time. Changes become effective immediately
+                upon publication on the website.
+            </p>
+
+            <h2>16. Governing Law</h2>
+            <p>
+                These Terms & Conditions are governed by the laws of India.
+                Any disputes shall be subject to the jurisdiction of courts
+                in Kerala, India.
+            </p>
+
+            <h2>17. Contact Us</h2>
+
+            <div class="contact-box">
+                <p><strong>The Fresh Barrel Customer Support</strong></p>
+                <p>Email: thefreshbarrel@gmail.com</p>
+                <p>Phone: +91 XXXXX XXXXX</p>
+                <p>Website: www.freshbarrel.com</p>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}
