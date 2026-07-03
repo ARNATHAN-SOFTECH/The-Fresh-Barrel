@@ -356,9 +356,13 @@
 
 <div class="search">
 
-<input
-type="text"
-placeholder="Search fresh products">
+    <form method="GET" action="{% url 'search_products' %}">
+        <input
+            type="text"
+            name="q"
+            placeholder="Search fresh products..."
+            value="{{ request.GET.q }}">
+    </form>
 
 </div>
 

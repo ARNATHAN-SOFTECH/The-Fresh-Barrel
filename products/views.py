@@ -1,6 +1,28 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Category, Product
 from django.shortcuts import redirect
+from django.db.models import Q
+
+def search_products(request):
+    query = request.GET.get('q', '').strip()
+
+    products = Product.objects.all()
+
+    if query:
+        products = Product.objects.filter(
+            Q(name__icontains=query) |
+            Q(category__name__icontains=query)
+        )
+
+    return render(
+        request,
+        'products/search_results.html',
+        {
+            'query': query,
+            'products': products
+        }
+    )
+
 
 def add_to_cart(request, product_id):
 
