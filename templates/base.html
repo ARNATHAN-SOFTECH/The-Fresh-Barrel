@@ -90,27 +90,53 @@
 
         /* CART */
 
+        .cart{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 15px;
+        }
+
         .cart-link{
-            position:relative;
-            text-decoration:none;
-            color:#222;
-            font-weight:600;
+            position: relative;
+            width: 50px;
+            height: 50px;
+            border: 1px solid #d9e7d9;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: #2e7d32;
+            background: #fff;
+            transition: 0.3s;
+        }
+
+        .cart-link i{
+            font-size: 22px;
+        }
+
+        .cart-link:hover{
+            background: #f5faf5;
+            color: #1b5e20;
+            border-color: #2e7d32;
         }
 
         .cart-badge{
-            position:absolute;
-            top:-10px;
-            right:-15px;
-            background:#e53935;
-            color:white;
-            width:22px;
-            height:22px;
-            border-radius:50%;
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            font-size:12px;
-            font-weight:bold;
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            width: 22px;
+            height: 22px;
+            background: #e53935;
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+            border: 2px solid #fff;
         }
 
         /* MENU */
@@ -267,6 +293,39 @@
                 padding:20px;
             }
         }
+
+
+
+            .profile{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-right: 15px;
+            }
+
+            .profile-link{
+                width: 50px;
+                height: 50px;
+                border: 1px solid #d9e7d9;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-decoration: none;
+                color: #2e7d32;
+                background: #fff;
+                transition: 0.3s;
+            }
+
+            .profile-link i{
+                font-size: 22px;
+            }
+
+            .profile-link:hover{
+                background: #f5faf5;
+                color: #1b5e20;
+                border-color: #2e7d32;
+            }
     </style>
 
     {% block extra_css %}
@@ -301,6 +360,16 @@
 type="text"
 placeholder="Search fresh products">
 
+</div>
+
+
+
+
+
+<div class="profile">
+    <a href="#" class="profile-link">
+        <i class="fa-regular fa-user"></i>
+    </a>
 </div>
 
 <div class="cart">
