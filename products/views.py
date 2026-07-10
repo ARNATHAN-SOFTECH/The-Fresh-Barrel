@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from .models import Category, Product
 from django.shortcuts import redirect
 from django.db.models import Q
+from decimal import Decimal
 
 def search_products(request):
     query = request.GET.get('q', '').strip()
@@ -26,8 +27,11 @@ def search_products(request):
 
 def add_to_cart(request, product_id):
 
-    product = get_object_or_404(Product, id=product_id)
+    product = Product.objects.get(id=product_id)
 
+    if product.stock <= 0 or not product.is_available:
+        return redirect('product_detail', product_id)
+    
     quantity = int(request.POST.get('quantity', 1))
 
     cart = request.session.get('cart', {})
@@ -68,11 +72,7 @@ def category_products(request, pk):
 
 def product_detail(request, pk):
 
-    product = get_object_or_404(
-        Product,
-        pk=pk,
-        is_available=True
-    )
+    product = get_object_or_404(Product, pk=pk)
 
     return render(
         request,
@@ -88,28 +88,48 @@ def cart(request):
 
     cart_items = []
 
-    total = 0
+    subtotal = Decimal('0.00')
 
     for product_id, quantity in cart.items():
 
-        product = Product.objects.get(id=product_id)
+        try:
+            product = Product.objects.get(id=product_id)
 
-        subtotal = product.selling_price * quantity
+            item_total = product.selling_price * quantity
 
-        total += subtotal
+            subtotal += item_total
 
-        cart_items.append({
-            'product': product,
-            'quantity': quantity,
-            'subtotal': subtotal
-        })
+            cart_items.append({
+                'product': product,
+                'quantity': quantity,
+                'subtotal': item_total
+            })
+
+        except Product.DoesNotExist:
+            pass
+
+    # GST 5%
+    gst = subtotal * Decimal('0.05')
+
+    # Delivery Charge
+    if subtotal == 0:
+        delivery_charge = Decimal('0.00')
+    elif subtotal >= Decimal('799.00'):
+        delivery_charge = Decimal('0.00')
+    else:
+        delivery_charge = Decimal('40.00')
+
+    grand_total = subtotal + gst + delivery_charge
 
     return render(
         request,
         'products/cart.html',
         {
             'cart_items': cart_items,
-            'total': total
+            'subtotal': subtotal.quantize(Decimal('0.01')),
+            'gst': gst.quantize(Decimal('0.01')),
+            'delivery_charge': delivery_charge.quantize(Decimal('0.01')),
+            'grand_total': grand_total.quantize(Decimal('0.01')),
         }
     )
 

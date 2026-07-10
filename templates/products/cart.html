@@ -3,93 +3,247 @@
 {% block content %}
 
 <style>
-
 .cart-container{
-    width:85%;
-    margin:50px auto;
+    width:88%;
+    margin:30px auto 50px;
 }
+
+/* TITLE */
 
 .cart-title{
     text-align:center;
+    font-size:30px;
+    font-weight:500;
+    color:var(--secondary);
+    margin-bottom:8px;
+}
+
+.shipping-note{
+    text-align:center;
+    color:#ff4b36;
+    font-size:14px;
+    font-weight:600;
     margin-bottom:40px;
 }
 
-.cart-item{
-    display:flex;
+/* HEADER */
+
+.cart-header{
+    display:grid;
+    grid-template-columns: 5.5fr 1.4fr 1.1fr 1fr 60px;
     align-items:center;
-    gap:25px;
+    padding:18px 0;
+    border-bottom:1px solid #ddd;
+    font-size:14px;
+    font-weight:600;
+    color:#666;
+}
+
+.cart-header .price-col,
+.cart-header .qty-col,
+.cart-header .subtotal-col{
+    text-align:center;
+}
+
+/* PRODUCT ROW */
+
+.cart-row{
+    display:grid;
+    grid-template-columns: 4.5fr 1.2fr 1fr 1.2fr 60px;
+    align-items:center;
     padding:25px 0;
     border-bottom:1px solid #ddd;
 }
 
-.cart-item img{
-    width:140px;
-    height:140px;
-    object-fit:cover;
-    border-radius:12px;
-}
-
-.cart-info{
-    flex:1;
-}
-
-.cart-info h3{
-    margin-bottom:15px;
-}
-
-.qty-controls{
+.product-info{
     display:flex;
     align-items:center;
-    gap:10px;
-    margin:15px 0;
+    gap:22px;
 }
 
-.qty-btn{
-    width:35px;
-    height:35px;
-    background:#f2f2f2;
-    border:none;
-    cursor:pointer;
-    border-radius:5px;
-    text-decoration:none;
-    color:black;
-    font-size:20px;
+.product-info img{
+    width:120px;
+    height:120px;
+    object-fit:cover;
+}
+
+.product-info h3{
+    margin:0;
+    font-size:17px;
+    font-weight:400;
+    color:#444;
+    line-height:1.5;
+    max-width:620px;
+}
+
+/* PRICE */
+
+.price-col,
+.subtotal-col{
+    text-align:center;
+    font-size:16px;
+    color:#444;
+}
+
+/* QUANTITY */
+
+.qty-col{
+    display:flex;
+    justify-content:center;
+}
+
+.qty-box{
+    display:flex;
+    border:1px solid #bdbdbd;
+}
+
+.qty-box a,
+.qty-box span{
+    width:42px;
+    height:42px;
     display:flex;
     justify-content:center;
     align-items:center;
 }
 
-.qty{
-    width:40px;
-    text-align:center;
-    font-weight:bold;
-}
-
-.remove-btn{
-    display:inline-block;
-    margin-top:10px;
-    color:red;
+.qty-box a{
     text-decoration:none;
+    color:#222;
+    font-size:22px;
 }
 
-.total-box{
-    margin-top:40px;
-    text-align:right;
+.qty-box span{
+    border-left:1px solid #ddd;
+    border-right:1px solid #ddd;
+    font-size:16px;
 }
 
-.total{
-    font-size:32px;
+/* DELETE */
+
+.remove-col{
+    text-align:center;
+}
+
+.remove-col a{
+    color:#666;
+    font-size:26px;
+}
+
+/* BOTTOM AREA */
+
+.cart-bottom{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    margin-top:25px;
+}
+
+/* COUPON */
+
+.coupon-section{
+    width:42%;
+}
+
+.coupon-box{
+    display:flex;
+    width:340px;
+}
+
+.coupon-box input{
+    flex:1;
+    height:42px;
+    padding:0 15px;
+    border:1px solid #ccc;
+    font-size:14px;
+}
+
+.coupon-box button{
+    width:100px;
+    border:none;
+    background:var(--primary);
+    color:white;
+    font-size:15px;
+    font-weight:600;
+}
+
+.coupon-section p{
+    margin-top:10px;
+    font-size:14px;
+    color:#666;
+}
+
+/* SUMMARY */
+
+.cart-summary{
+    width:360px;
+    border-top:1px solid #ddd;
+    padding-top:12px;
+}
+
+.summary-row{
+    display:flex;
+    justify-content:space-between;
+    padding:12px 0;
+    font-size:15px;
+}
+
+.summary-row strong{
+    font-size:15px;
+}
+
+.grand-total{
+    font-weight:700;
+}
+
+.amount-pay{
+    color:var(--primary);
     font-weight:700;
 }
 
 .checkout-btn{
-    display:inline-block;
+    display:block;
+    width:100%;
+    text-align:center;
     margin-top:20px;
-    background:#0b6b31;
+    background:var(--primary);
     color:white;
-    padding:14px 35px;
-    border-radius:8px;
     text-decoration:none;
+    padding:14px;
+    font-size:15px;
+    font-weight:600;
+}
+
+/* MOBILE */
+
+@media(max-width:992px){
+
+    .cart-header{
+        display:none;
+    }
+
+    .cart-row{
+        grid-template-columns:1fr;
+        gap:20px;
+    }
+
+    .product-info{
+        flex-direction:column;
+        text-align:center;
+    }
+
+    .cart-bottom{
+        flex-direction:column;
+        gap:40px;
+    }
+
+    .coupon-section,
+    .cart-summary{
+        width:100%;
+    }
+
+    .coupon-box{
+        width:100%;
+    }
 }
 
 </style>
@@ -100,73 +254,141 @@
         Shopping Cart
     </h1>
 
+    <p class="shipping-note">
+        Free shipping on orders above ₹799
+    </p>
+
+<div class="cart-header">
+    <div>PRODUCT</div>
+    <div>UNIT PRICE</div>
+    <div>QTY</div>
+    <div>SUBTOTAL</div>
+    <div></div>
+</div>
+
     {% for item in cart_items %}
 
-    <div class="cart-item">
+    <div class="cart-row">
 
-        <img src="{{ item.product.image.url }}">
+        <div class="product-col product-info">
 
-        <div class="cart-info">
+            <img src="{{ item.product.image.url }}">
 
-            <h3>{{ item.product.name }}</h3>
+            <div>
+                <h3>{{ item.product.name }}</h3>
+            </div>
 
-            <p>
-                ₹{{ item.product.selling_price }}
-            </p>
+        </div>
 
-            <div class="qty-controls">
+        <div class="price-col">
+            ₹{{ item.product.selling_price }}
+        </div>
 
-                <a
-                    href="{% url 'decrease_cart' item.product.id %}"
-                    class="qty-btn">
+        <div class="qty-col">
+
+            <div class="qty-box">
+
+                <a href="{% url 'decrease_cart' item.product.id %}">
                     -
                 </a>
 
-                <div class="qty">
-                    {{ item.quantity }}
-                </div>
+                <span>{{ item.quantity }}</span>
 
-                <a
-                    href="{% url 'increase_cart' item.product.id %}"
-                    class="qty-btn">
+                <a href="{% url 'increase_cart' item.product.id %}">
                     +
                 </a>
 
             </div>
 
-            <p>
-                Subtotal:
-                ₹{{ item.subtotal }}
-            </p>
+        </div>
 
-            <a
-                href="{% url 'remove_cart' item.product.id %}"
-                class="remove-btn">
-                Remove
+        <div class="subtotal-col">
+            ₹{{ item.subtotal }}
+        </div>
+
+        <div class="remove-col">
+            <a href="{% url 'remove_cart' item.product.id %}">
+                <i class="fa-regular fa-trash-can"></i>
             </a>
-
         </div>
 
     </div>
 
     {% empty %}
 
-    <h3>Your cart is empty.</h3>
+<div style="text-align:center;padding:60px 0;">
+    <h3>Your cart is empty</h3>
+</div>
 
-    {% endfor %}
+{% endfor %}
 
-    <div class="total-box">
+    <div class="cart-bottom">
 
-        <div class="total">
-            Total : ₹{{ total }}
+    <div class="coupon-section">
+
+        <div class="coupon-box">
+
+            <input
+                type="text"
+                placeholder="REDEEM COUPON CODE"
+            >
+
+            <button>
+                Apply
+            </button>
+
         </div>
 
-        <a href="#" class="checkout-btn">
+        <p>
+            * Only one offer/coupon can be applied
+        </p>
+
+    </div>
+
+    <div class="cart-summary">
+
+<div class="summary-row">
+    <span>Item Subtotal</span>
+    <strong>₹{{ subtotal }}</strong>
+</div>
+
+<div class="summary-row">
+    <span>GST (5%)</span>
+    <strong>₹{{ gst }}</strong>
+</div>
+
+<div class="summary-row">
+    <span>Delivery Charge</span>
+
+    {% if delivery_charge == 0 %}
+        <strong style="color:var(--primary);">
+            FREE
+        </strong>
+    {% else %}
+        <strong>
+            ₹{{ delivery_charge }}
+        </strong>
+    {% endif %}
+</div>
+
+<div class="summary-row grand-total">
+    <span>Grand Total</span>
+    <strong>₹{{ grand_total }}</strong>
+</div>
+
+<div class="summary-row amount-pay">
+    <span>Amount To Pay</span>
+    <strong>₹{{ grand_total }}</strong>
+</div>
+
+        <a href="{% url 'checkout' %}" class="checkout-btn">
             Proceed To Checkout
         </a>
 
     </div>
 
 </div>
+</div>
+
 
 {% endblock %}
