@@ -40,3 +40,13 @@ build/
 # Cache
 .pytest_cache/
 .mypy_cache/
+
+
+myenv/
+.env
+db.sqlite3
+__pycache__/
+*.pyc
+media/
+staticfiles/
+.vscode/

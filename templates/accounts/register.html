@@ -41,10 +41,26 @@ Register | The Fresh Barrel
     border-radius:8px;
     font-size:17px;
     font-weight:600;
+    transition:0.3s;
 }
 
 .btn-register:hover{
     background:#157347;
+}
+
+.spinner-border{
+    width:18px;
+    height:18px;
+    margin-right:8px;
+    display:none;
+}
+
+.form-control{
+    height:45px;
+}
+
+.alert{
+    margin-bottom:20px;
 }
 </style>
 
@@ -54,26 +70,73 @@ Register | The Fresh Barrel
 
         <h2>Create Account</h2>
 
-        <form method="POST">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <form method="POST" action="{% url 'register' %}" id="registerForm">
+
             {% csrf_token %}
 
             <div class="mb-3">
                 <label class="form-label">Full Name</label>
-                <input type="text" name="name" class="form-control" required>
+                <input
+                    type="text"
+                    name="name"
+                    class="form-control"
+                    placeholder="Enter your full name"
+                    required>
             </div>
 
             <div class="mb-3">
                 <label class="form-label">Place</label>
-                <input type="text" name="place" class="form-control" required>
+                <input
+                    type="text"
+                    name="place"
+                    class="form-control"
+                    placeholder="Enter your place"
+                    required>
             </div>
 
             <div class="mb-3">
                 <label class="form-label">Mobile Number</label>
-                <input type="text" name="mobile" class="form-control" maxlength="10" required>
+
+                <div class="input-group">
+                    <span class="input-group-text">+91</span>
+
+                    <input
+                        type="tel"
+                        name="mobile"
+                        class="form-control"
+                        placeholder="9876543210"
+                        maxlength="10"
+                        pattern="[6-9][0-9]{9}"
+                        required>
+                </div>
+
+                <small class="text-muted">
+                    Enter a valid 10-digit mobile number.
+                </small>
             </div>
 
-            <button type="submit" class="btn-register">
-                Send OTP
+            <button
+                type="submit"
+                class="btn-register"
+                id="sendOtpBtn">
+
+                <span
+                    class="spinner-border spinner-border-sm"
+                    id="spinner">
+                </span>
+
+                <span id="btnText">
+                    Send OTP
+                </span>
+
             </button>
 
         </form>
@@ -81,5 +144,17 @@ Register | The Fresh Barrel
     </div>
 
 </div>
+
+<script>
+document.getElementById("registerForm").addEventListener("submit", function(){
+
+    document.getElementById("spinner").style.display = "inline-block";
+
+    document.getElementById("btnText").innerHTML = "Sending OTP...";
+
+    document.getElementById("sendOtpBtn").disabled = true;
+
+});
+</script>
 
 {% endblock %}
