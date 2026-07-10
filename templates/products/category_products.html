@@ -93,24 +93,29 @@
 
 .add-btn{
     width:100%;
-    border:none;
-    background:#0b6b31;
-    color:white;
+    color:#0b6b31;
+    text-align:center;
     padding:12px;
     border-radius:8px;
-    font-size:15px;
     font-weight:600;
-    cursor:pointer;
+    margin-top:10px;
 }
 
-.add-btn:hover{
-    opacity:.9;
-}
 
 .empty{
     text-align:center;
     font-size:18px;
     color:#666;
+}
+
+.out-stock{
+    width:100%;
+    color:rgb(255, 0, 0);
+    text-align:center;
+    padding:12px;
+    border-radius:8px;
+    font-weight:600;
+    margin-top:10px;
 }
 
 @media(max-width:1400px){
@@ -168,17 +173,31 @@
                     {{ product.weight }}
                 </div>
 
-                <div class="price-box">
+<div class="price-box">
 
-                    <span class="old-price">
-                        ₹{{ product.original_price }}
-                    </span>
+    <span class="old-price">
+        ₹{{ product.original_price }}
+    </span>
 
-                    <span class="new-price">
-                        ₹{{ product.selling_price }}
-                    </span>
+    <span class="new-price">
+        ₹{{ product.selling_price }}
+    </span>
 
-                </div>
+</div>
+
+{% if product.stock > 0 and product.is_available %}
+
+    <div class="add-btn">
+        Available
+    </div>
+
+{% else %}
+
+    <div class="out-stock">
+        Out Of Stock
+    </div>
+
+{% endif %}
 
 
             </div>

@@ -33,11 +33,22 @@ Search Results
 
                             <h5  style="min-height:55px;">{{ product.name }}</h5>
 
+                            {% if product.stock > 0 and product.is_available %}
 
                             <a href="{% url 'product_detail' product.id %}"
-                               class="btn btn-success">
-                                View Product
+                                class="btn btn-success">
+                                    View Product
                             </a>
+
+                            {% else %}
+
+                            <div class="out-stock-detail">
+                                Out Of Stock
+                            </div>
+
+                            {% endif %}
+
+                            
 
                         </div>
 
