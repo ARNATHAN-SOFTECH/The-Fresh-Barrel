@@ -70,9 +70,6 @@ Register | The Fresh Barrel
 
         <h2>Login / Register</h2>
 
-        <p class="text-center text-muted mb-4">
-            Enter your mobile number to continue.
-        </p>
 
         {% if messages %}
             {% for message in messages %}
@@ -86,7 +83,7 @@ Register | The Fresh Barrel
 
             {% csrf_token %}
 
-            <div id="nameField">
+            <div class="mb-3" id="nameField">
 
                 <label class="form-label">
                     Full Name
@@ -99,7 +96,7 @@ Register | The Fresh Barrel
 
             </div>
 
-            <div id="placeField">
+            <div class="mb-3" id="placeField">
 
                 <label class="form-label">
                     Place
@@ -113,24 +110,22 @@ Register | The Fresh Barrel
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Mobile Number</label>
 
-                <div class="input-group">
-                    <span class="input-group-text">+91</span>
+                <label class="form-label">
+                    Email Address
+                </label>
 
-                    <input
-                        type="tel"
-                        name="mobile"
-                        class="form-control"
-                        placeholder="9876543210"
-                        maxlength="10"
-                        pattern="[6-9][0-9]{9}"
-                        required>
-                </div>
+                <input
+                    type="email"
+                    name="email"
+                    class="form-control"
+                    placeholder="example@gmail.com"
+                    required>
 
                 <small class="text-muted">
-                    Enter a valid 10-digit mobile number.
+                    Enter your registered email address.
                 </small>
+
             </div>
 
             <button
@@ -156,6 +151,8 @@ Register | The Fresh Barrel
 </div>
 
 <script>
+
+// Show loading spinner
 document.getElementById("registerForm").addEventListener("submit", function(){
 
     document.getElementById("spinner").style.display = "inline-block";
@@ -166,19 +163,16 @@ document.getElementById("registerForm").addEventListener("submit", function(){
 
 });
 
+// Check whether the email already exists
+const emailInput = document.querySelector("input[name='email']");
 
+emailInput.addEventListener("blur", function(){
 
-const mobileInput = document.querySelector("input[name='mobile']");
-
-mobileInput.addEventListener("blur", function(){
-
-    if(this.value.length != 10){
-
+    if(this.value.trim() === ""){
         return;
-
     }
 
-    fetch("/accounts/check-mobile/?mobile=" + this.value)
+    fetch("/accounts/check-email/?email=" + encodeURIComponent(this.value))
 
     .then(response => response.json())
 
@@ -186,16 +180,14 @@ mobileInput.addEventListener("blur", function(){
 
         if(data.exists){
 
+            // Existing user → Hide Name & Place
             document.getElementById("nameField").style.display = "none";
-
             document.getElementById("placeField").style.display = "none";
 
-        }
+        }else{
 
-        else{
-
+            // New user → Show Name & Place
             document.getElementById("nameField").style.display = "block";
-
             document.getElementById("placeField").style.display = "block";
 
         }
@@ -203,6 +195,7 @@ mobileInput.addEventListener("blur", function(){
     });
 
 });
+
 </script>
 
 {% endblock %}

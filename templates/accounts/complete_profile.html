@@ -1,0 +1,222 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Complete Your Profile | The Fresh Barrel
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+.profile-section{
+    min-height:90vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#f5f7f5;
+    padding:50px 0;
+}
+
+.profile-card{
+    width:100%;
+    max-width:650px;
+    background:#fff;
+    border-radius:15px;
+    box-shadow:0 10px 30px rgba(0,0,0,.12);
+    padding:40px;
+}
+
+.profile-title{
+    color:#198754;
+    font-size:34px;
+    font-weight:700;
+    text-align:center;
+    margin-bottom:10px;
+}
+
+.profile-text{
+    text-align:center;
+    color:#666;
+    margin-bottom:30px;
+}
+
+.form-label{
+    font-weight:600;
+}
+
+.form-control,
+.form-select{
+    height:48px;
+    border-radius:8px;
+}
+
+textarea.form-control{
+    height:120px;
+}
+
+.btn-save{
+    width:100%;
+    background:#198754;
+    color:white;
+    border:none;
+    padding:14px;
+    border-radius:8px;
+    font-size:18px;
+    font-weight:600;
+}
+
+.btn-save:hover{
+    background:#157347;
+}
+
+.required{
+    color:red;
+}
+
+</style>
+
+<section class="profile-section">
+
+<div class="profile-card">
+
+<h2 class="profile-title">
+Complete Your Profile
+</h2>
+
+<p class="profile-text">
+Please complete your profile to continue shopping.
+</p>
+
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+
+<form method="POST">
+
+{% csrf_token %}
+
+<div class="row">
+
+<div class="col-md-6 mb-3">
+
+<label class="form-label">
+Full Name <span class="required">*</span>
+</label>
+
+<input
+type="text"
+name="name"
+class="form-control"
+placeholder="Enter your full name"
+required>
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label class="form-label">
+Phone Number
+</label>
+
+<input
+type="text"
+class="form-control"
+value="{{ request.user.username }}"
+readonly>
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label class="form-label">
+Email Address <span class="required">*</span>
+</label>
+
+<input
+type="email"
+name="email"
+class="form-control"
+value="{{ request.user.email }}"
+required>
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label class="form-label">
+Place <span class="required">*</span>
+</label>
+
+<input
+type="text"
+name="place"
+class="form-control"
+placeholder="Enter your city"
+required>
+
+</div>
+
+<div class="col-12 mb-3">
+
+<label class="form-label">
+Address
+</label>
+
+<textarea
+name="address"
+class="form-control"
+placeholder="Enter your address"></textarea>
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label class="form-label">
+Pincode
+</label>
+
+<input
+type="text"
+name="pincode"
+class="form-control"
+maxlength="6">
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label class="form-label">
+State
+</label>
+
+<input
+type="text"
+name="state"
+class="form-control">
+
+</div>
+
+<div class="col-12 mt-3">
+
+<button type="submit" class="btn-save">
+
+Save Profile
+
+</button>
+
+</div>
+
+</div>
+
+</form>
+
+</div>
+
+</section>
+
+{% endblock %}

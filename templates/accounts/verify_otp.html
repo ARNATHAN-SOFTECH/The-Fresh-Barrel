@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-Verify OTP
+Verify Email OTP | The Fresh Barrel
 {% endblock %}
 
 {% block content %}
@@ -36,7 +36,15 @@ Verify OTP
 .verify-card p{
     text-align:center;
     color:#666;
+    margin-bottom:20px;
+}
+
+.email-text{
+    text-align:center;
+    color:#198754;
+    font-weight:600;
     margin-bottom:25px;
+    word-break:break-word;
 }
 
 .otp-boxes{
@@ -72,61 +80,38 @@ Verify OTP
     border-radius:8px;
     font-size:17px;
     font-weight:600;
-    transition:.3s;
 }
 
 .btn-verify:hover{
     background:#157347;
 }
 
+.btn-verify:disabled{
+    background:#b5b5b5;
+    cursor:not-allowed;
+}
+
 .alert-danger{
     background:#f8d7da;
     color:#842029;
     border:1px solid #f5c2c7;
-    font-weight:600;
 }
 
 .alert-success{
     background:#d1e7dd;
     color:#0f5132;
     border:1px solid #badbcc;
-    font-weight:600;
 }
 
-
-
 #timer{
-
     font-size:15px;
-
 }
 
 #resendBtn{
-
+    display:none;
     font-size:16px;
-
-}
-
-#resendBtn:hover{
-
-    text-decoration:underline;
-
-}
-
-
-.btn-verify:disabled{
-
-    background:#b5b5b5;
-    cursor:not-allowed;
-    opacity:.7;
-
-}
-
-.btn-verify:not(:disabled){
-
-    background:#198754;
-    cursor:pointer;
-
+    text-decoration:none;
+    font-weight:600;
 }
 
 </style>
@@ -135,19 +120,21 @@ Verify OTP
 
     <div class="verify-card">
 
-        <h2>Verify OTP</h2>
+        <h2>Email Verification</h2>
 
-        <p>Enter the 6-digit OTP sent to your mobile number.</p>
+        <p>
+            Enter the 6-digit OTP sent to your email address.
+        </p>
+
+        {% if email %}
+        <div class="email-text">
+            {{ email }}
+        </div>
+        {% endif %}
 
         {% if messages %}
             {% for message in messages %}
-                <div class="alert
-                    {% if message.tags == 'error' %}
-                        alert-danger
-                    {% else %}
-                        alert-{{ message.tags }}
-                    {% endif %}
-                    alert-dismissible fade show">
+                <div class="alert {% if message.tags == 'error' %}alert-danger{% else %}alert-{{ message.tags }}{% endif %} alert-dismissible fade show">
 
                     {{ message }}
 
@@ -167,47 +154,40 @@ Verify OTP
 
             <div class="otp-boxes">
 
-                <input type="text" maxlength="1" class="otp-input" inputmode="numeric" autocomplete="one-time-code" required>
-                <input type="text" maxlength="1" class="otp-input" inputmode="numeric" autocomplete="one-time-code" required>
-                <input type="text" maxlength="1" class="otp-input" inputmode="numeric" autocomplete="one-time-code" required>
-                <input type="text" maxlength="1" class="otp-input" inputmode="numeric" autocomplete="one-time-code" required>
-                <input type="text" maxlength="1" class="otp-input" inputmode="numeric" autocomplete="one-time-code" required>
-                <input type="text" maxlength="1" class="otp-input" inputmode="numeric" autocomplete="one-time-code" required>
+                <input type="text" maxlength="1" class="otp-input" inputmode="numeric" required>
+                <input type="text" maxlength="1" class="otp-input" inputmode="numeric" required>
+                <input type="text" maxlength="1" class="otp-input" inputmode="numeric" required>
+                <input type="text" maxlength="1" class="otp-input" inputmode="numeric" required>
+                <input type="text" maxlength="1" class="otp-input" inputmode="numeric" required>
+                <input type="text" maxlength="1" class="otp-input" inputmode="numeric" required>
 
             </div>
 
+            <div class="text-center mb-3">
 
-                                <div class="text-center mb-3">
+                <span id="timer" class="text-muted">
+                    Resend OTP in <strong>60</strong> seconds
+                </span>
 
-    <span id="timer" class="text-muted">
-        Resend OTP in <strong>60</strong> seconds
-    </span>
+                <br>
 
-    <br>
+                <a href="{% url 'register' %}" id="resendBtn">
+                    Resend OTP
+                </a>
 
-    <a href="{% url 'register' %}"
-       id="resendBtn"
-       class="btn btn-link text-success"
-       style="display:none;text-decoration:none;font-weight:600;">
+            </div>
 
-        Resend OTP
-
-    </a>
-
-</div>
-
-            <!-- Hidden field submitted to Django -->
             <input type="hidden" name="otp" id="otp">
 
             <button
-            type="submit"
-            class="btn-verify"
-            id="verifyBtn"
-            disabled>
+                type="submit"
+                class="btn-verify"
+                id="verifyBtn"
+                disabled>
 
-            Verify OTP
+                Verify OTP
 
-        </button>
+            </button>
 
         </form>
 
@@ -217,163 +197,118 @@ Verify OTP
 
 <script>
 
-const inputs = document.querySelectorAll(".otp-input");
-const otpForm = document.getElementById("otpForm");
-const verifyBtn = document.getElementById("verifyBtn");
-const hiddenOtp = document.getElementById("otp");
+const inputs=document.querySelectorAll(".otp-input");
+const verifyBtn=document.getElementById("verifyBtn");
+const hiddenOtp=document.getElementById("otp");
+const otpForm=document.getElementById("otpForm");
 
-// ===========================
-// OTP INPUT FUNCTIONALITY
-// ===========================
+inputs.forEach((input,index)=>{
 
-inputs.forEach((input, index) => {
+    input.addEventListener("input",function(){
 
-    // Only allow numbers
-    input.addEventListener("input", function () {
+        this.value=this.value.replace(/\D/g,"");
 
-        this.value = this.value.replace(/\D/g, "");
+        if(this.value && index<5){
 
-        if (this.value.length === 1 && index < inputs.length - 1) {
-            inputs[index + 1].focus();
-        }
-
-        checkOTP();
-
-    });
-
-    // Backspace
-    input.addEventListener("keydown", function (e) {
-
-        if (e.key === "Backspace" && this.value === "" && index > 0) {
-
-            inputs[index - 1].focus();
+            inputs[index+1].focus();
 
         }
 
+        updateOTP();
+
     });
 
-    // Select text when clicked
-    input.addEventListener("focus", function () {
+    input.addEventListener("keydown",function(e){
 
-        this.select();
+        if(e.key==="Backspace" && this.value==="" && index>0){
+
+            inputs[index-1].focus();
+
+        }
 
     });
 
 });
 
-// ===========================
-// PASTE SUPPORT
-// ===========================
-
-inputs[0].addEventListener("paste", function (e) {
+inputs[0].addEventListener("paste",function(e){
 
     e.preventDefault();
 
-    const data = (e.clipboardData || window.clipboardData)
+    const pasted=(e.clipboardData || window.clipboardData)
         .getData("text")
-        .replace(/\D/g, "");
+        .replace(/\D/g,"");
 
-    if (data.length === 6) {
+    if(pasted.length===6){
 
-        inputs.forEach((input, index) => {
+        inputs.forEach((box,i)=>{
 
-            input.value = data[index];
+            box.value=pasted[i];
 
         });
 
-        inputs[5].focus();
+        updateOTP();
 
-        checkOTP();
+        inputs[5].focus();
 
     }
 
 });
 
-// ===========================
-// ENABLE VERIFY BUTTON
-// ===========================
+function updateOTP(){
 
-function checkOTP() {
+    let otp="";
 
-    let otp = "";
+    inputs.forEach(input=>{
 
-    inputs.forEach(input => {
-
-        otp += input.value;
+        otp+=input.value;
 
     });
 
-    hiddenOtp.value = otp;
+    hiddenOtp.value=otp;
 
-    verifyBtn.disabled = otp.length !== 6;
+    verifyBtn.disabled=(otp.length!==6);
 
 }
 
-// ===========================
-// FORM SUBMIT
-// ===========================
+otpForm.addEventListener("submit",function(e){
 
-otpForm.addEventListener("submit", function (e) {
-
-    let otp = "";
-
-    inputs.forEach(input => {
-
-        otp += input.value;
-
-    });
-
-    if (otp.length !== 6) {
+    if(hiddenOtp.value.length!==6){
 
         e.preventDefault();
 
         alert("Please enter the complete 6-digit OTP.");
 
-        return;
-
     }
-
-    hiddenOtp.value = otp;
 
 });
 
-// ===========================
-// COUNTDOWN TIMER
-// ===========================
+let timeLeft=60;
 
-let timeLeft = 60;
+const timer=document.getElementById("timer");
+const resend=document.getElementById("resendBtn");
 
-const timer = document.getElementById("timer");
-const resendBtn = document.getElementById("resendBtn");
+const countdown=setInterval(function(){
 
-const countdown = setInterval(function () {
-
-    if (timeLeft > 0) {
+    if(timeLeft>0){
 
         timeLeft--;
 
-        timer.innerHTML =
-            `Resend OTP in <strong>${timeLeft}</strong> seconds`;
+        timer.innerHTML=`Resend OTP in <strong>${timeLeft}</strong> seconds`;
 
     }
 
-    if (timeLeft === 0) {
+    if(timeLeft===0){
 
         clearInterval(countdown);
 
-        timer.style.display = "none";
+        timer.style.display="none";
 
-        resendBtn.style.display = "inline-block";
+        resend.style.display="inline";
 
     }
 
-}, 1000);
+},1000);
 
-// ===========================
-// INITIAL STATE
-// ===========================
-
-verifyBtn.disabled = true;
 inputs[0].focus();
 
 </script>

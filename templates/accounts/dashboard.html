@@ -1,0 +1,433 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+My Dashboard | The Fresh Barrel
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+.dashboard-section{
+    background:#f8f9fa;
+    min-height:85vh;
+    padding:60px 0;
+}
+
+.dashboard-card{
+    background:#fff;
+    border-radius:12px;
+    box-shadow:0 8px 25px rgba(0,0,0,.08);
+    padding:40px;
+}
+
+.dashboard-title{
+    color:#198754;
+    font-size:42px;
+    font-weight:700;
+    margin-bottom:15px;
+}
+
+.dashboard-subtitle{
+    font-size:20px;
+    font-weight:600;
+    margin-bottom:10px;
+}
+
+.dashboard-text{
+    color:#666;
+    margin-bottom:35px;
+}
+
+.section-title{
+    font-size:22px;
+    font-weight:700;
+    margin-top:30px;
+    margin-bottom:20px;
+    color:#222;
+    border-bottom:2px solid #198754;
+    padding-bottom:10px;
+}
+
+.info-box{
+    border:1px solid #e5e5e5;
+    border-radius:10px;
+    padding:25px;
+    height:100%;
+}
+
+.info-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:15px;
+    border-bottom:1px solid #eee;
+    padding-bottom:10px;
+}
+
+.info-header h5{
+    margin:0;
+    font-weight:700;
+}
+
+.info-header a{
+    color:#198754;
+    text-decoration:none;
+    font-weight:600;
+}
+
+.info-header a:hover{
+    text-decoration:underline;
+}
+
+.info-box p{
+    margin-bottom:10px;
+    color:#555;
+}
+
+.address-box{
+    border:1px solid #e5e5e5;
+    border-radius:10px;
+    padding:25px;
+    margin-top:20px;
+}
+
+.address-title{
+    font-size:20px;
+    font-weight:700;
+    margin-bottom:15px;
+}
+
+.btn-dashboard{
+    background:#198754;
+    color:#fff;
+    border:none;
+    padding:10px 20px;
+    border-radius:6px;
+    text-decoration:none;
+    display:inline-block;
+}
+
+.btn-dashboard:hover{
+    background:#157347;
+    color:#fff;
+}
+
+.badge-success{
+    background:#198754;
+    color:#fff;
+    padding:6px 12px;
+    border-radius:20px;
+    font-size:13px;
+}
+
+.badge-danger{
+    background:#dc3545;
+    color:#fff;
+    padding:6px 12px;
+    border-radius:20px;
+    font-size:13px;
+}
+
+</style>
+
+
+<section class="dashboard-section">
+
+<div class="container">
+
+<div class="dashboard-card">
+
+
+<h1 class="dashboard-title">
+    My Dashboard
+</h1>
+
+
+<h5 class="dashboard-subtitle">
+
+    Hello, {{ profile.name|default:"Customer" }}!
+
+</h5>
+
+
+<p class="dashboard-text">
+
+From your dashboard you can view your account information,
+manage your profile and addresses, and keep track of your orders.
+
+</p>
+
+
+
+<h3 class="section-title">
+ACCOUNT INFORMATION
+</h3>
+
+
+
+<div class="row">
+
+
+<div class="col-lg-6 mb-4">
+
+<div class="info-box">
+
+
+<div class="info-header">
+
+<h5>
+CONTACT INFORMATION
+</h5>
+
+<a href="#">
+Edit
+</a>
+
+</div>
+
+
+
+<p>
+<strong>Name:</strong>
+
+{{ profile.name }}
+
+</p>
+
+
+
+<p>
+<strong>Email:</strong>
+
+{{ profile.email }}
+
+</p>
+
+
+
+<p>
+<strong>Place:</strong>
+
+{{ profile.place }}
+
+</p>
+
+
+
+<p>
+
+<strong>Email Status:</strong>
+
+
+{% if profile.is_email_verified %}
+
+<span class="badge-success">
+Verified
+</span>
+
+{% else %}
+
+<span class="badge-danger">
+Not Verified
+</span>
+
+{% endif %}
+
+
+</p>
+
+
+
+<p>
+
+<strong>Member Since:</strong>
+
+{{ profile.created_at|date:"d M Y" }}
+
+</p>
+
+
+
+<a href="#" class="btn-dashboard">
+
+Change Password
+
+</a>
+
+
+</div>
+
+</div>
+
+
+
+
+
+<div class="col-lg-6 mb-4">
+
+<div class="info-box">
+
+
+<div class="info-header">
+
+<h5>
+NEWSLETTER
+</h5>
+
+
+<a href="#">
+Edit
+</a>
+
+
+</div>
+
+
+
+<p>
+You are currently not subscribed to any newsletter.
+</p>
+
+
+
+</div>
+
+</div>
+
+
+</div>
+
+
+
+
+
+<h3 class="section-title">
+ADDRESS BOOK
+</h3>
+
+
+
+
+<div class="row">
+
+
+
+<div class="col-md-6 mb-4">
+
+
+<div class="address-box">
+
+
+<div class="address-title">
+
+Default Billing Address
+
+</div>
+
+
+{% if profile.address %}
+
+<p>
+{{ profile.address }}
+</p>
+
+<p>
+{{ profile.state }} - {{ profile.pincode }}
+</p>
+
+
+{% else %}
+
+<p>
+You have not set a default billing address.
+</p>
+
+{% endif %}
+
+
+
+<a href="#" class="btn-dashboard">
+
+Manage Address
+
+</a>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+<div class="col-md-6 mb-4">
+
+
+<div class="address-box">
+
+
+<div class="address-title">
+
+Default Shipping Address
+
+</div>
+
+
+
+{% if profile.address %}
+
+<p>
+{{ profile.address }}
+</p>
+
+
+<p>
+{{ profile.state }} - {{ profile.pincode }}
+</p>
+
+
+{% else %}
+
+<p>
+You have not set a default shipping address.
+</p>
+
+
+{% endif %}
+
+
+
+<a href="#" class="btn-dashboard">
+
+Manage Address
+
+</a>
+
+
+
+</div>
+
+
+</div>
+
+
+
+</div>
+
+
+
+</div>
+
+</div>
+
+
+</section>
+
+
+{% endblock %}

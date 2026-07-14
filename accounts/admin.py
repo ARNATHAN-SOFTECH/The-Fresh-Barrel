@@ -5,12 +5,19 @@ from .models import Profile
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
     list_display = (
-        'name',
-        'mobile',
-        'place',
-        'is_mobile_verified',
-        'created_at',
+        "name",
+        "email",
+        "place",
+        "is_email_verified",
+        "created_at",
     )
 
-    search_fields = ('name', 'mobile', 'place')
-    list_filter = ('is_mobile_verified',)
+    list_filter = (
+        "is_email_verified",
+    )
+
+    search_fields = (
+        "name",
+        "email",
+        "place",
+    )

@@ -1,201 +1,201 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.contrib.auth import login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.contrib.auth import login
+from django.http import JsonResponse
 
 from .models import Profile
-from .utils import send_otp, verify_otp
-
-
-from django.shortcuts import render, redirect
-from django.contrib import messages
-from django.contrib.auth.models import User
-
-from .utils import send_otp
+from .utils import send_otp, generate_otp
 
 
 def register(request):
-
     if request.method == "POST":
 
-        # Get form data
         name = request.POST.get("name", "").strip()
         place = request.POST.get("place", "").strip()
-        mobile = request.POST.get("mobile", "").strip()
+        email = request.POST.get("email", "").strip().lower()
 
-        # Validate mobile number
-        if len(mobile) != 10 or not mobile.isdigit():
-
-            messages.error(request, "Please enter a valid 10-digit mobile number.")
+        if not email:
+            messages.error(request, "Please enter a valid email address.")
             return redirect("register")
 
-        # Check if the mobile number already exists
-        existing_user = User.objects.filter(username=mobile).exists()
+        existing_user = User.objects.filter(email=email).exists()
 
-        # Name and Place are required only for new users
         if not existing_user:
-
             if not name or not place:
-
                 messages.error(request, "Please enter your name and place.")
                 return redirect("register")
 
-        phone = "+91" + mobile
-
         try:
+            otp = generate_otp()
 
-            status = send_otp(phone)
+            send_otp(email, otp)
 
-            if status == "pending":
+            request.session["otp"] = otp
+            request.session["email"] = email
+            request.session["name"] = name
+            request.session["place"] = place
 
-                # Save data in session
-                request.session["mobile"] = mobile
-                request.session["name"] = name
-                request.session["place"] = place
+            messages.success(request, "OTP sent successfully.")
 
-                messages.success(request, "OTP sent successfully.")
-
-                return render(
-                    request,
-                    "accounts/verify_otp.html",
-                    {
-                        "mobile": mobile
-                    }
-                )
-
-            else:
-
-                messages.error(request, "Unable to send OTP.")
-                return redirect("register")
+            return render(
+                request,
+                "accounts/verify_otp.html",
+                {"email": email},
+            )
 
         except Exception as e:
-
-            messages.error(request, str(e))
+            messages.error(request, f"Failed to send OTP: {e}")
             return redirect("register")
 
     return render(request, "accounts/register.html")
 
 
 def verify(request):
-
     if request.method != "POST":
-
         return redirect("register")
 
-    otp = request.POST.get("otp")
+    entered_otp = request.POST.get("otp")
+    saved_otp = request.session.get("otp")
 
-    mobile = request.session.get("mobile")
+    email = request.session.get("email")
     name = request.session.get("name")
     place = request.session.get("place")
 
-    if not mobile:
-
+    if not email:
         messages.error(request, "Session expired. Please register again.")
-
         return redirect("register")
 
-    phone = "+91" + mobile
-
-    try:
-
-        status = verify_otp(phone, otp)
-
-        if status != "approved":
-
-            messages.error(request, "Invalid OTP.")
-
-            return render(
-                request,
-                "accounts/verify_otp.html",
-                {
-                    "mobile": mobile
-                }
-            )
-
-        # ------------------------------
-        # USER EXISTS → LOGIN
-        # ------------------------------
-
-        if User.objects.filter(username=mobile).exists():
-
-            user = User.objects.get(username=mobile)
-
-            login(request, user)
-
-            # Clear session
-            request.session.pop("name", None)
-            request.session.pop("place", None)
-            request.session.pop("mobile", None)
-
-            messages.success(request, "Login Successful.")
-
-            return redirect("home")
-
-        # ------------------------------
-        # NEW USER → REGISTER
-        # ------------------------------
-
-        user = User.objects.create_user(
-            username=mobile
-        )
-
-        Profile.objects.create(
-            user=user,
-            name=name,
-            place=place,
-            mobile=mobile,
-            is_mobile_verified=True
-        )
-
-        login(request, user)
-
-        # Clear session
-        request.session.pop("name", None)
-        request.session.pop("place", None)
-        request.session.pop("mobile", None)
-
-        messages.success(request, "Registration Successful.")
-
-        return redirect("home")
-
-    except Exception as e:
-
-        messages.error(request, str(e))
-
+    if str(entered_otp) != str(saved_otp):
+        messages.error(request, "Invalid OTP.")
         return render(
             request,
             "accounts/verify_otp.html",
-            {
-                "mobile": mobile
-            }
+            {"email": email},
         )
-    
+
+    # ==========================
+    # Existing User Login
+    # ==========================
+    if User.objects.filter(email=email).exists():
+
+        user = User.objects.get(email=email)
+
+        login(request, user)
+
+        # Remove only OTP session data
+        request.session.pop("otp", None)
+        request.session.pop("email", None)
+        request.session.pop("name", None)
+        request.session.pop("place", None)
+
+        messages.success(request, "Login Successful.")
+
+        return redirect("dashboard")
+
+    # ==========================
+    # New User Registration
+    # ==========================
+
+    request.session["new_user_email"] = email
+    request.session["new_user_name"] = name
+    request.session["new_user_place"] = place
+
+    return redirect("complete_profile")
 
 
-from django.http import JsonResponse
-from django.contrib.auth.models import User
+@login_required
+def complete_profile(request):
+
+    if "new_user_email" not in request.session:
+        messages.error(request, "Session expired.")
+        return redirect("register")
+
+    email = request.session.get("new_user_email")
+    name = request.session.get("new_user_name")
+    place = request.session.get("new_user_place")
+
+    # Create User
+    user, created = User.objects.get_or_create(
+        username=email,
+        defaults={
+            "email": email,
+        }
+    )
+
+    # Ensure email is correct
+    if user.email != email:
+        user.email = email
+        user.save()
+
+    # Create Profile
+    profile, created = Profile.objects.get_or_create(
+        user=user,
+        defaults={
+            "email": email,
+            "name": name,
+            "place": place,
+            "is_email_verified": True,
+        }
+    )
+
+    # Update existing profile
+    if not created:
+        profile.email = email
+        profile.name = name
+        profile.place = place
+        profile.is_email_verified = True
+        profile.save()
+
+    login(request, user)
+
+    # Remove only temporary registration session data
+    request.session.pop("otp", None)
+    request.session.pop("email", None)
+    request.session.pop("name", None)
+    request.session.pop("place", None)
+
+    request.session.pop("new_user_email", None)
+    request.session.pop("new_user_name", None)
+    request.session.pop("new_user_place", None)
+
+    messages.success(request, "Registration Successful.")
+
+    return redirect("dashboard")
 
 
-def check_mobile(request):
+def check_email(request):
+    email = request.GET.get("email", "").strip().lower()
 
-    mobile = request.GET.get("mobile")
-
-    exists = User.objects.filter(username=mobile).exists()
+    exists = User.objects.filter(email=email).exists()
 
     return JsonResponse({
         "exists": exists
     })
 
+@login_required
+def dashboard(request):
 
+    profile, created = Profile.objects.get_or_create(
+        user=request.user,
+        defaults={
+            "email": request.user.email
+        }
+    )
 
+    context = {
+        "profile": profile
+    }
 
-
-
-from django.contrib.auth import logout
+    return render(
+        request,
+        "accounts/dashboard.html",
+        context
+    )
 
 
 def logout_view(request):
-
     logout(request)
-
+    messages.success(request, "Logged out successfully.")
     return redirect("home")

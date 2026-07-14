@@ -1,7 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-
-
 class Profile(models.Model):
 
     user = models.OneToOneField(
@@ -10,18 +8,21 @@ class Profile(models.Model):
         related_name="profile"
     )
 
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, blank=True)
 
-    place = models.CharField(max_length=100)
+    email = models.EmailField(unique=True)
 
-    mobile = models.CharField(
-        max_length=15,
-        unique=True
-    )
+    place = models.CharField(max_length=100, blank=True)
 
-    is_mobile_verified = models.BooleanField(default=False)
+    address = models.TextField(blank=True)
+
+    state = models.CharField(max_length=100, blank=True)
+
+    pincode = models.CharField(max_length=10, blank=True)
+
+    is_email_verified = models.BooleanField(default=False)
 
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.name
+        return self.name if self.name else self.email
