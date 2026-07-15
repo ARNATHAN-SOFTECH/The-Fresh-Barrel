@@ -105,7 +105,6 @@ def verify(request):
     return redirect("complete_profile")
 
 
-@login_required
 def complete_profile(request):
 
     if "new_user_email" not in request.session:
