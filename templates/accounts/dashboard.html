@@ -130,6 +130,27 @@ My Dashboard | The Fresh Barrel
     font-size:13px;
 }
 
+.logout-wrapper{
+    display:flex;
+    justify-content:flex-end;
+    margin-top:30px;
+}
+
+.btn-logout{
+    background:#dc3545;
+    color:#fff;
+    border:none;
+    padding:10px 20px;
+    border-radius:6px;
+    text-decoration:none;
+    font-weight:600;
+}
+
+.btn-logout:hover{
+    background:#bb2d3b;
+    color:#fff;
+}
+
 </style>
 
 
@@ -150,7 +171,6 @@ My Dashboard | The Fresh Barrel
     Hello, {{ profile.name|default:"Customer" }}!
 
 </h5>
-
 
 <p class="dashboard-text">
 
@@ -413,6 +433,11 @@ Manage Address
 
 </div>
 
+<div class="logout-wrapper">
+    <a href="{% url 'logout' %}" class="btn-logout">
+        Logout
+    </a>
+</div>
 
 
 </div>
