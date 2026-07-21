@@ -11,23 +11,34 @@ class CategoryAdmin(admin.ModelAdmin):
     ]
 
 
+from django.contrib import admin
+from .models import Category, Product
+
+
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
 
-    list_display = [
-        'name',
-        'category',
-        'price',
-        'stock'
-    ]
+    list_display = (
+        "name",
+        "category",
+        "selling_price",
+        "stock",
+        "deal_of_the_day",
+        "is_available",
+    )
 
-    list_filter = [
-        'category'
-    ]
+    list_filter = (
+        "category",
+        "deal_of_the_day",
+        "is_available",
+    )
 
-    search_fields = [
-        'name'
-    ]
+    list_editable = (
+        "deal_of_the_day",
+        "is_available",
+    )
+
+    search_fields = ("name",)
 
 
 admin.site.register(Profile)

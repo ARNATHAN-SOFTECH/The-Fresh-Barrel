@@ -1,11 +1,22 @@
-from django.shortcuts import render
-from products.models import Category
 
+from django.shortcuts import render
+from products.models import Product, Category
 
 def home(request):
-    categories = Category.objects.all()
-    return render(request, 'core/home.html', {'categories': categories})
+    deals = Product.objects.filter(
+        deal_of_the_day=True,
+        is_available=True
+    )
 
+    categories = Category.objects.all()
+
+    print("Deals Count:", deals.count())
+    print("Categories Count:", categories.count())
+
+    return render(request, "core/home.html", {
+        "deals": deals,
+        "categories": categories,
+    })
 
 def contact_us(request):
     return render(request, 'core/contact_us.html')

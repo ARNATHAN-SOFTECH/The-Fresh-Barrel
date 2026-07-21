@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <style>
         *{
             margin:0;
@@ -593,6 +594,89 @@
         padding:12px;
     }
 }
+
+
+
+
+
+/* ===========================
+   FOOTER KEYWORDS
+=========================== */
+
+.footer-keywords{
+    padding:35px 0;
+}
+
+.footer-keywords-container{
+    width:95%;
+    max-width:1400px;
+    margin:auto;
+}
+
+.footer-keywords h3{
+    font-size:11px;
+    color:#3b3b3b;
+    font-weight:500;
+    text-transform:uppercase;
+    margin-bottom:18px;
+    letter-spacing:0.2px;
+}
+
+.keyword-block{
+    margin-bottom:14px;
+}
+
+.keyword-block h4{
+    font-size:11px;
+    color:#4a4a4a;
+    font-weight:600;
+    margin-bottom:2px;
+}
+
+.keyword-block p{
+    font-size:11px;
+    color:#6d6d6d;
+    line-height:1.35;
+    margin:0;
+    text-align:left;
+}
+
+.keyword-block p a{
+    color:#6d6d6d;
+    text-decoration:none;
+}
+
+.keyword-block p a:hover{
+    color:#0b4426;
+}
+
+/* Mobile */
+
+@media (max-width:768px){
+
+    .footer-keywords{
+        padding:25px 0;
+    }
+
+    .footer-keywords h3{
+        font-size:10px;
+        margin-bottom:15px;
+    }
+
+    .keyword-block{
+        margin-bottom:12px;
+    }
+
+    .keyword-block h4{
+        font-size:10px;
+    }
+
+    .keyword-block p{
+        font-size:10px;
+        line-height:1.3;
+    }
+
+}
     </style>
 
     {% block extra_css %}
@@ -782,6 +866,68 @@
     </div>
 
 </div>    </div>
+
+
+
+<!-- ===========================
+     FOOTER KEYWORDS
+=========================== -->
+
+<section class="footer-keywords">
+
+    <div class="footer-keywords-container">
+
+        <h3>THE FRESH BARREL - ORDER FRESH FISH, CHICKEN & MUTTON ONLINE.</h3>
+
+        <div class="keyword-block">
+            <h4>Marine Fish</h4>
+            <p>
+                Anchovy | Sardine | Mackerel | Seer Fish | Tuna | Red Snapper | Pearl Spot | Pomfret |
+                Trevally | King Fish | Ribbon Fish | Sole Fish | Silver Belly | Threadfin Bream |
+                Emperor Fish | Grouper | Barracuda | Lady Fish | Catfish | Reef Cod | Stingray |
+                Eel | Shark | White Sardine | Jobfish | Queen Fish | Mullet | Goat Fish | Cobia
+            </p>
+        </div>
+
+        <div class="keyword-block">
+            <h4>Shell Fish</h4>
+            <p>
+                Shrimp | Tiger Prawns | Crab | Mud Crab | Lobster | Squid | Octopus |
+                Clam | Mussels | Oyster Meat | Scampi | Cuttle Fish | Prawns |
+                Sand Lobster | Calamari
+            </p>
+        </div>
+
+        <div class="keyword-block">
+            <h4>Freshwater Fish</h4>
+            <p>
+                Tilapia | Catla | Rohu | Pangasius | Pearl Spot | Catfish |
+                Murrel | Freshwater Prawns | Barramundi | Goby |
+                Milk Fish | Asian Seabass | Kayal Fish
+            </p>
+        </div>
+
+        <div class="keyword-block">
+            <h4>Poultry</h4>
+            <p>
+                Whole Chicken | Chicken Curry Cut | Chicken Breast |
+                Boneless Chicken | Chicken Drumsticks | Chicken Wings |
+                Chicken Lollipop | Country Chicken | Duck | Duck Egg
+            </p>
+        </div>
+
+        <div class="keyword-block">
+            <h4>Mutton</h4>
+            <p>
+                Goat Meat | Mutton Curry Cut | Boneless Mutton |
+                Mutton Chops | Mutton Mince | Lamb |
+                Lamb Chops | Goat Mince
+            </p>
+        </div>
+
+    </div>
+
+</section>
 
     <div class="cities">
         <div>Kochi</div>

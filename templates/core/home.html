@@ -8,272 +8,500 @@ THE FRESH BARREL
 {% block extra_css %}
 <style>
 
-/* BANNER */
+/* ===========================
+   BANNER
+=========================== */
 
 .banner{
-
-width:85%;
-
-height:520px;
-
-margin:35px auto;
-
-overflow:hidden;
-
-border-radius:20px;
-
-box-shadow:0 10px 30px rgba(0,0,0,.15);
-
+    width:85%;
+    height:520px;
+    margin:35px auto;
+    overflow:hidden;
+    border-radius:20px;
+    box-shadow:0 10px 30px rgba(0,0,0,.15);
 }
 
 .slider{
-
-display:flex;
-
-height:100%;
-
-animation:slide 9s ease-in-out infinite;
-
+    display:flex;
+    height:100%;
+    animation:slide 9s ease-in-out infinite;
 }
 
 .slide{
-
-min-width:100%;
-
-height:100%;
-
-position:relative;
-
+    min-width:100%;
+    height:100%;
+    position:relative;
 }
 
 .slide img{
-
-width:100%;
-
-height:100%;
-
-object-fit:cover;
-
-filter:brightness(60%);
-
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    filter:brightness(60%);
 }
 
-
-
-/* BANNER TEXT */
+/* ===========================
+   BANNER TEXT
+=========================== */
 
 .banner-text{
-
-position:absolute;
-
-top:50%;
-
-left:90px;
-
-transform:translateY(-50%);
-
-color:white;
-
-max-width:550px;
-
+    position:absolute;
+    top:50%;
+    left:90px;
+    transform:translateY(-50%);
+    color:#fff;
+    max-width:550px;
 }
 
 .banner-text h1{
-
-font-size:58px;
-
-margin-bottom:20px;
-
-line-height:1.1;
-
+    font-size:58px;
+    margin-bottom:20px;
+    line-height:1.1;
 }
 
 .banner-text p{
-
-font-size:22px;
-
-line-height:1.8;
-
-margin-bottom:35px;
-
+    font-size:22px;
+    line-height:1.8;
+    margin-bottom:35px;
 }
 
 .btn-shop{
     display:inline-block;
     padding:16px 38px;
     background:#0b4426;
-    color:white;
+    color:#fff;
     text-decoration:none;
     border-radius:8px;
     font-size:18px;
+    transition:.3s;
 }
 
 .btn-shop:hover{
     background:#145a32;
-    color:white;
+    color:#fff;
 }
 
-
-
-/* SLIDER */
+/* ===========================
+   SLIDER
+=========================== */
 
 @keyframes slide{
 
-0%,30%{
-transform:translateX(0%);
+    0%,30%{
+        transform:translateX(0%);
+    }
+
+    33%,63%{
+        transform:translateX(-100%);
+    }
+
+    66%,96%{
+        transform:translateX(-200%);
+    }
+
+    100%{
+        transform:translateX(0%);
+    }
+
 }
 
-33%,63%{
-transform:translateX(-100%);
-}
-
-66%,96%{
-transform:translateX(-200%);
-}
-
-100%{
-transform:translateX(0%);
-}
-
-}
-
-
-
-/* TITLE */
+/* ===========================
+   TITLE
+=========================== */
 
 .title{
-
-text-align:center;
-
-font-size:42px;
-
-color:#0b4426;
-
-margin-bottom:50px;
-
+    text-align:center;
+    font-size:42px;
+    color:#0b4426;
+    margin-bottom:50px;
 }
 
-
-
-/* CARDS */
+/* ===========================
+   CATEGORY CARDS
+=========================== */
 
 .cards{
-
-display:flex;
-
-justify-content:center;
-
-gap:35px;
-
-padding-bottom:80px;
-
+    display:flex;
+    justify-content:center;
+    gap:35px;
+    padding-bottom:80px;
+    flex-wrap:wrap;
 }
 
 .card{
-
-width:340px;
-
-background:white;
-
-border-radius:20px;
-
-overflow:hidden;
-
-box-shadow:0 6px 20px rgba(0,0,0,.08);
-
-transition:.4s;
-
+    width:340px;
+    background:#fff;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 6px 20px rgba(0,0,0,.08);
+    transition:.4s;
 }
 
 .card:hover{
-
-transform:translateY(-10px);
-
+    transform:translateY(-10px);
 }
 
 .card img{
-
-width:100%;
-
-height:240px;
-
-object-fit:cover;
-
+    width:100%;
+    height:240px;
+    object-fit:cover;
 }
 
 .content{
-
-padding:25px;
-
+    padding:25px;
 }
 
 .content h2{
-
-color:#0b4426;
-
-margin-bottom:15px;
-
+    color:#0b4426;
+    margin-bottom:15px;
 }
 
 .content p{
-
-line-height:1.8;
-
-color:#666;
-
+    line-height:1.8;
+    color:#666;
 }
 
 .content button{
+    margin-top:20px;
+    padding:14px 30px;
+    background:#0b4426;
+    color:#fff;
+    border:none;
+    border-radius:8px;
+}
 
-margin-top:20px;
+/* ===========================
+   ADVANTAGES
+=========================== */
 
-padding:14px 30px;
+.advantages-section{
+    width:100%;
+    padding:30px 0;
+    margin:50px 0;
+}
 
-background:#0b4426;
+.advantages-container{
+    width:95%;
+    max-width:1400px;
+    margin:auto;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:30px;
+}
 
-color:white;
+.advantage-item{
+    flex:1;
+    display:flex;
+    align-items:center;
+    gap:18px;
+    position:relative;
+    transition:.3s;
+}
 
-border:none;
+.advantage-item:not(:last-child)::after{
+    content:"";
+    position:absolute;
+    right:-15px;
+    top:50%;
+    transform:translateY(-50%);
+    width:1px;
+    height:55px;
+    background:#d4d4d4;
+}
 
-border-radius:8px;
+.advantage-icon{
+    flex-shrink:0;
+}
+
+.advantage-icon i{
+    font-size:40px;
+    color:#8B5A2B;
+    transition:.3s;
+}
+
+.advantage-content h5{
+    margin:0;
+    font-size:18px;
+    font-weight:700;
+}
+
+.advantage-content p{
+    margin:5px 0 0;
+    color:#666;
+}
+
+.advantage-item:hover{
+    transform:translateY(-3px);
+}
+
+.advantage-item:hover .advantage-icon i{
+    color:#6d4318;
+}
+
+/* ===========================
+   DEAL OF THE DAY
+=========================== */
+
+.product-section{
+    width:90%;
+    max-width:1400px;
+    margin:50px auto;
+}
+
+.product-title{
+    text-align:center;
+    font-size:34px;
+    font-weight:700;
+    color:#222;
+    margin-bottom:40px;
+}
+
+.product-grid{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:25px;
+}
+
+.product-link{
+    text-decoration:none;
+    color:inherit;
+}
+
+.product-card{
+    background:#fff;
+    border:1px solid #eee;
+    border-radius:12px;
+    overflow:hidden;
+    transition:0.3s ease;
+}
+
+.product-card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+
+.image-wrapper{
+    width:100%;
+    height:250px;
+    overflow:hidden;
+}
+
+.product-image{
+    width:100%;
+    height:170px;
+    object-fit:cover;
+    display:block;
+}
+
+.product-content{
+    padding:15px;
+}
+
+.product-name{
+    font-size:17px;
+    font-weight:600;
+    color:#222;
+    line-height:1.5;
+    min-height:55px;
+}
+
+.product-weight{
+    color:#777;
+    font-size:14px;
+    margin:10px 0;
+}
+
+.price-box{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-bottom:15px;
+}
+
+.old-price{
+    color:#888;
+    text-decoration:line-through;
+    font-size:15px;
+}
+
+.new-price{
+    color:#0b6b31;
+    font-size:20px;
+    font-weight:700;
+}
+
+.add-btn{
+    color:#0b6b31;
+    font-size:15px;
+    font-weight:600;
+    margin-top:10px;
+}
+
+.out-stock{
+    color:#dc3545;
+    font-size:15px;
+    font-weight:600;
+    margin-top:10px;
+}
+
+/* ===========================
+   TABLET
+=========================== */
+
+@media (max-width:992px){
+
+    .advantages-container{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .advantage-item:not(:last-child)::after{
+        display:none;
+    }
+
+    .product-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+}
+
+/* ===========================
+   MOBILE
+=========================== */
+
+@media (max-width:900px){
+
+    .cards{
+        flex-direction:column;
+        align-items:center;
+    }
+
+    .banner-text{
+        left:35px;
+    }
+
+    .banner-text h1{
+        font-size:40px;
+    }
+
+    .banner-text p{
+        font-size:18px;
+    }
+
+}
+
+@media (max-width:576px){
+
+    .advantages-section{
+        padding:15px;
+    }
+
+    .advantage-item{
+        gap:15px;
+    }
+
+    .advantage-icon i{
+        font-size:34px;
+    }
+
+    .advantage-content h5{
+        font-size:16px;
+    }
+
+    .advantage-content p{
+        font-size:13px;
+    }
+
+    .product-grid{
+        grid-template-columns:1fr;
+    }
+
+    .product-title{
+        font-size:28px;
+    }
+
+    .image-wrapper{
+        height:220px;
+    }
+
+    .product-image{
+        height:160px;
+    }
 
 }
 
 
 
+/* ===========================
+   ABOUT THE FRESH BARREL
+=========================== */
 
-
-
-/* RESPONSIVE */
-
-@media(max-width:900px){
-
-
-.cards{
-
-flex-direction:column;
-
-align-items:center;
-
+.about-fresh-barrel{
+    width:95%;
+    max-width:1400px;
+    margin:60px auto;
+    line-height:1.7;
+    color:#444;
 }
 
-.banner-text{
-
-left:35px;
-
+.about-fresh-barrel .container{
+    width:100%;
 }
 
-.banner-text h1{
-
-font-size:40px;
-
+.about-fresh-barrel h2{
+    font-size:28px;
+    color:#0b4426;
+    margin-bottom:15px;
+    font-weight:700;
 }
 
-.banner-text p{
-
-font-size:18px;
-
+.about-fresh-barrel h3{
+    font-size:20px;
+    color:#0b4426;
+    margin-top:25px;
+    margin-bottom:8px;
+    font-weight:600;
 }
+
+.about-fresh-barrel p{
+    font-size:15px;
+    margin-bottom:15px;
+    text-align:justify;
+}
+
+.about-fresh-barrel ul{
+    margin:15px 0 25px 20px;
+}
+
+.about-fresh-barrel li{
+    font-size:15px;
+    margin-bottom:8px;
+}
+
+.about-fresh-barrel strong{
+    color:#0b4426;
+}
+
+@media (max-width:768px){
+
+    .about-fresh-barrel{
+        width:92%;
+        margin:40px auto;
+    }
+
+    .about-fresh-barrel h2{
+        font-size:22px;
+    }
+
+    .about-fresh-barrel h3{
+        font-size:18px;
+    }
+
+    .about-fresh-barrel p,
+    .about-fresh-barrel li{
+        font-size:14px;
+    }
 
 }
 
@@ -364,6 +592,59 @@ Premium cuts selected and delivered at peak freshness.
 
 
 
+<section class="advantages-section">
+    <div class="advantages-container">
+
+        <!-- Item 1 -->
+        <div class="advantage-item">
+            <div class="advantage-icon">
+                <i class="bi bi-shield-check"></i>
+            </div>
+
+            <div class="advantage-content">
+                <h5>100% Fresh & Hygienically Packed</h5>
+                <p>
+                    Freshly sourced every day, cleaned with care,
+                    and packed in food-grade packaging.
+                </p>
+            </div>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="advantage-item">
+            <div class="advantage-icon">
+                <i class="bi bi-award"></i>
+            </div>
+
+            <div class="advantage-content">
+                <h5>Premium Quality Guaranteed</h5>
+                <p>
+                    Every order is carefully quality checked to ensure
+                    only the finest products reach your home.
+                </p>
+            </div>
+        </div>
+
+        <!-- Item 3 -->
+        <div class="advantage-item">
+            <div class="advantage-icon">
+                <i class="bi bi-snow2"></i>
+            </div>
+
+            <div class="advantage-content">
+                <h5>Cold Chain Maintained</h5>
+                <p>
+                    Temperature-controlled storage and delivery
+                    keep your order fresh from source to doorstep.
+                </p>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+
 <div class="title">
 
 Fresh Delivered Daily
@@ -409,6 +690,189 @@ Fresh Delivered Daily
     {% endfor %}
 
 </div>
+
+<section class="product-section">
+
+<h2 class="product-title">
+    Deal Of The Day
+</h2>
+
+<div class="product-grid">
+
+{% for product in deals %}
+
+<a href="{% url 'product_detail' product.id %}" class="product-link">
+
+<div class="product-card">
+
+<img src="{{ product.image.url }}" class="product-image">
+
+<div class="product-content">
+
+<div class="product-name">
+
+{{ product.name }}
+
+</div>
+
+<div class="product-weight">
+
+{{ product.weight }}
+
+</div>
+
+<div class="price-box">
+
+<span class="old-price">
+
+₹{{ product.original_price }}
+
+</span>
+
+<span class="new-price">
+
+₹{{ product.selling_price }}
+
+</span>
+
+</div>
+
+{% if product.stock > 0 %}
+
+<div class="add-btn">
+
+Available
+
+</div>
+
+{% else %}
+
+<div class="out-stock">
+
+Out Of Stock
+
+</div>
+
+{% endif %}
+
+</div>
+
+</div>
+
+</a>
+
+{% empty %}
+
+<h4>No Deals Available</h4>
+
+{% endfor %}
+
+</div>
+
+</section>
+
+<!-- ===========================
+     WHY THE FRESH BARREL
+=========================== -->
+
+<section class="about-fresh-barrel">
+    <div class="container">
+
+        <h2>The Fresh Barrel: Your Trusted Destination for Fresh Fish, Meat & Seafood Delivery</h2>
+
+        <p>
+            In today's fast-paced world, buying fresh fish and meat should be simple, convenient,
+            and trustworthy. The Fresh Barrel brings premium-quality seafood, poultry, and mutton
+            directly to your doorstep. We combine freshness, hygiene, and fast delivery to provide
+            an enjoyable online shopping experience for every household.
+        </p>
+
+        <h3>Fresh Quality You Can Trust</h3>
+
+        <p>
+            At The Fresh Barrel, quality is our highest priority. Every product is carefully selected,
+            cleaned, packed hygienically, and delivered while maintaining maximum freshness.
+            Whether you need premium fish, tender chicken, or fresh mutton, we ensure every order
+            meets strict quality standards.
+        </p>
+
+        <h3>The Heart of Our Business: Fresh Fish, Meat & Seafood</h3>
+
+        <p>
+            We work directly with trusted fishermen, farmers, and certified suppliers to source the
+            freshest products available. Our careful quality checks and hygienic handling process
+            ensure that every item reaching your kitchen is safe, healthy, and delicious.
+        </p>
+
+        <h3>Fresh Delivery Right to Your Doorstep</h3>
+
+        <p>
+            Skip crowded markets and long queues. With The Fresh Barrel, you can conveniently order
+            fresh fish, chicken, and mutton online from the comfort of your home. Our simple ordering
+            process and dependable delivery service make shopping easier than ever.
+        </p>
+
+        <h3>Order Online in Just a Few Clicks</h3>
+
+        <p>
+            Shopping with The Fresh Barrel is quick and hassle-free. Browse our products, choose your
+            preferred cuts, add them to your cart, complete your secure payment, and relax while we
+            prepare and deliver your order with care.
+        </p>
+
+        <h3>Fast, Reliable & Timely Delivery</h3>
+
+        <p>
+            We understand how important freshness is. That's why our delivery system is designed to
+            ensure your order reaches you on time while maintaining the highest quality throughout
+            the journey.
+        </p>
+
+        <h3>Your One-Stop Shop for Fresh Meat & Seafood</h3>
+
+        <p>
+            Whether you're preparing a family dinner, a festive meal, or a weekend barbecue,
+            The Fresh Barrel offers a wide selection of premium-quality fish, chicken, and mutton
+            to satisfy every taste and recipe.
+        </p>
+
+        <h3>Explore Our Fresh Collection</h3>
+
+        <p>
+            Discover our carefully selected range of premium products:
+        </p>
+
+        <ul>
+            <li><strong>Fresh Fish:</strong> Premium freshwater and marine fish, cleaned and ready for cooking.</li>
+
+            <li><strong>Fresh Chicken:</strong> Whole chicken, curry cut, boneless breast, wings, drumsticks, and more.</li>
+
+            <li><strong>Fresh Mutton:</strong> Tender goat meat prepared for authentic and flavorful dishes.</li>
+
+            <li><strong>Ready-to-Cook:</strong> Convenient marinated and ready-to-cook products for quick meals.</li>
+        </ul>
+
+        <h3>Why Choose The Fresh Barrel?</h3>
+
+        <p>
+            We are committed to delivering exceptional quality, hygienic processing, affordable
+            pricing, and dependable customer service. Every order is packed with care to ensure
+            freshness from our facility to your dining table.
+        </p>
+
+        <p>
+            Join thousands of happy customers who trust The Fresh Barrel for their daily seafood and
+            meat needs. Experience premium quality, reliable service, and the convenience of online
+            shopping—all in one place.
+        </p>
+
+        <p>
+            Order today from <strong>The Fresh Barrel</strong> and enjoy the taste of freshness,
+            quality, and convenience delivered straight to your doorstep.
+        </p>
+
+    </div>
+</section>
 
 
 
