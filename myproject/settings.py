@@ -41,11 +41,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sitemaps',
+            
 
     'core',
     'products',
     'accounts',
     'orders',
+    'meta',
 ]
 
 MIDDLEWARE = [
@@ -74,6 +77,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'products.context_processors.cart_count',
+            
 
             ],
         },

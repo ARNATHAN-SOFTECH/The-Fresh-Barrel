@@ -1,8 +1,21 @@
-
 from django.shortcuts import render
 from products.models import Product, Category
 
+
 def home(request):
+
+    seo = {
+        "title": "The Fresh Barrel | Fresh Fish, Chicken & Mutton",
+        "description": "Order fresh fish, seafood, chicken and mutton online with hygienic cleaning and fast doorstep delivery.",
+        "keywords": "fresh fish, seafood, chicken, mutton, online fish delivery",
+        "url": request.build_absolute_uri(),
+        "canonical": request.build_absolute_uri(),
+        "image": request.build_absolute_uri("/static/img/logo.jpeg"),
+        "type": "website",
+        "site_name": "The Fresh Barrel",
+        "twitter_card": "summary_large_image",
+    }
+
     deals = Product.objects.filter(
         deal_of_the_day=True,
         is_available=True
@@ -10,13 +23,15 @@ def home(request):
 
     categories = Category.objects.all()
 
-    print("Deals Count:", deals.count())
-    print("Categories Count:", categories.count())
-
-    return render(request, "core/home.html", {
-        "deals": deals,
-        "categories": categories,
-    })
+    return render(
+        request,
+        "core/home.html",
+        {
+            "seo": seo,
+            "deals": deals,
+            "categories": categories,
+        },
+    )
 
 def contact_us(request):
     return render(request, 'core/contact_us.html')
@@ -40,3 +55,23 @@ def terms_conditions(request):
 
 def blog(request):
     return render(request, 'core/blog.html')
+
+
+from django.http import HttpResponse
+
+
+def robots_txt(request):
+    return HttpResponse(
+        """User-agent: *
+
+Allow: /
+
+Disallow: /admin/
+Disallow: /accounts/
+Disallow: /cart/
+Disallow: /checkout/
+
+Sitemap: https://thefreshbarrel.in/sitemap.xml
+""",
+        content_type="text/plain",
+    )

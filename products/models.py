@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.urls import reverse
 
 
 class Category(models.Model):
@@ -56,9 +57,14 @@ class Product(models.Model):
         editable=False
     )
 
+    def get_absolute_url(self):
+        return reverse("product_detail", kwargs={"pk": self.pk})
+
     class Meta:
         ordering = ["-created_at"]
 
     def __str__(self):
         return self.name
+
+
 
