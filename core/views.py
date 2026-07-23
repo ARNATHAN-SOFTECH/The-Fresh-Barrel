@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from products.models import Product, Category
-
+from django.shortcuts import get_object_or_404
 
 def home(request):
 
@@ -53,8 +53,37 @@ def terms_conditions(request):
     return render(request, 'core/terms_conditions.html')
 
 
-def blog(request):
-    return render(request, 'core/blog.html')
+# core/views.py
+
+from .models import Blog
+
+
+def blog_list(request):
+
+    blogs = Blog.objects.filter(
+        is_published=True
+    ).order_by('-created_at')
+
+    return render(
+        request,
+        'core/blog.html',
+        {'blogs': blogs}
+    )
+
+
+def blog_detail(request, slug):
+
+    blog = get_object_or_404(
+        Blog,
+        slug=slug,
+        is_published=True
+    )
+
+    return render(
+        request,
+        'core/blog_detail.html',
+        {'blog': blog}
+    )
 
 
 from django.http import HttpResponse

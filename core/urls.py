@@ -8,5 +8,11 @@ urlpatterns = [
     path('privacy-policy/', views.privacy_policy, name='privacy_policy'),
     path('refund-policy/', views.refund_policy, name='refund_policy'),
     path('terms-and-conditions/', views.terms_conditions, name='terms_conditions'),
-    path('blog/', views.blog, name='blog'),
+    path('blog/', views.blog_list, name='blog'),
+
+    path(
+    'blog/<slug:slug>/',
+    views.blog_detail,
+    name='blog_detail'
+),
 ]
