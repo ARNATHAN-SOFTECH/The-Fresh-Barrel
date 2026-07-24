@@ -4,55 +4,72 @@ from .models import ShippingAddress
 from datetime import date, timedelta
 from decimal import Decimal
 
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
+from products.models import Product
+from accounts.models import Address
+
+
+@login_required
 def checkout(request):
 
-    cart = request.session.get('cart', {})
+    cart = request.session.get("cart", {})
 
     cart_items = []
     total = 0
 
     for product_id, quantity in cart.items():
 
-        product = Product.objects.get(id=product_id)
+        try:
+            product = Product.objects.get(id=product_id)
 
-        item_total = product.selling_price * quantity
+            subtotal = product.selling_price * quantity
 
-        total += item_total
+            total += subtotal
 
-        cart_items.append({
-            'product': product,
-            'quantity': quantity,
-            'subtotal': item_total
-        })
+            cart_items.append({
+                "product": product,
+                "quantity": quantity,
+                "subtotal": subtotal,
+            })
+
+        except Product.DoesNotExist:
+            continue
+
+    # Get the default address
+    default_address = Address.objects.filter(
+        user=request.user,
+        is_default=True
+    ).first()
 
     if request.method == "POST":
 
-        address = ShippingAddress.objects.create(
-            user=request.user,
-            first_name=request.POST.get('first_name'),
-            last_name=request.POST.get('last_name'),
-            mobile=request.POST.get('mobile'),
-            address_line1=request.POST.get('address_line1'),
-            address_line2=request.POST.get('address_line2'),
-            landmark=request.POST.get('landmark'),
-            pincode=request.POST.get('pincode'),
-            locality=request.POST.get('locality'),
-        )
+        if not default_address:
+            return render(
+                request,
+                "orders/checkout.html",
+                {
+                    "cart_items": cart_items,
+                    "total": total,
+                    "default_address": default_address,
+                    "error": "Please add your delivery address."
+                }
+            )
 
-        request.session['shipping_id'] = address.id
+        # Store selected address for the order
+        request.session["address_id"] = default_address.id
 
-        return redirect('order_confirmation')
+        return redirect("order_confirmation")
 
     return render(
         request,
-        'orders/checkout.html',
+        "orders/checkout.html",
         {
-            'cart_items': cart_items,
-            'total': total
+            "cart_items": cart_items,
+            "total": total,
+            "default_address": default_address,
         }
     )
-
-
 def order_confirmation(request):
 
     shipping_id = request.session.get('shipping_id')

@@ -317,112 +317,58 @@ You are currently not subscribed to any newsletter.
 
 
 <h3 class="section-title">
-ADDRESS BOOK
+    ADDRESS
 </h3>
 
-
-
-
-<div class="row">
-
-
-
-<div class="col-md-6 mb-4">
-
-
 <div class="address-box">
 
+    <div class="info-header">
 
-<div class="address-title">
+        <h5>Default Delivery Address</h5>
 
-Default Billing Address
+        <a href="{% url 'manage_address' %}">
+            Manage Address
+        </a>
 
-</div>
+    </div>
 
+    {% if default_address %}
 
-{% if profile.address %}
+        <p>
+            <strong>Address</strong><br>
+            {{ default_address.full_address }}
+        </p>
 
-<p>
-{{ profile.address }}
-</p>
+        <p>
+            <strong>Landmark:</strong>
+            {{ default_address.landmark }}
+        </p>
 
-<p>
-{{ profile.state }} - {{ profile.pincode }}
-</p>
+        <p>
+            <strong>Pincode:</strong>
+            {{ default_address.pincode }}
+        </p>
 
+        <p>
+            <strong>Mobile:</strong>
+            {{ default_address.mobile }}
+        </p>
 
-{% else %}
+    {% else %}
 
-<p>
-You have not set a default billing address.
-</p>
+        <div style="text-align:center;padding:30px 0;">
 
-{% endif %}
+            <p style="margin-bottom:20px;color:#666;">
+                No address has been added yet.
+            </p>
 
+            <a href="{% url 'manage_address' %}" class="btn-dashboard">
+                Add Address
+            </a>
 
+        </div>
 
-<a href="#" class="btn-dashboard">
-
-Manage Address
-
-</a>
-
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-
-<div class="col-md-6 mb-4">
-
-
-<div class="address-box">
-
-
-<div class="address-title">
-
-Default Shipping Address
-
-</div>
-
-
-
-{% if profile.address %}
-
-<p>
-{{ profile.address }}
-</p>
-
-
-<p>
-{{ profile.state }} - {{ profile.pincode }}
-</p>
-
-
-{% else %}
-
-<p>
-You have not set a default shipping address.
-</p>
-
-
-{% endif %}
-
-
-
-<a href="#" class="btn-dashboard">
-
-Manage Address
-
-</a>
-
-
+    {% endif %}
 
 </div>
 

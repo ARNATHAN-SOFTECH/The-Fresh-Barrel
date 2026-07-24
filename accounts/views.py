@@ -173,6 +173,11 @@ def check_email(request):
         "exists": exists
     })
 
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
+from .models import Profile, Address
+
+
 @login_required
 def dashboard(request):
 
@@ -183,8 +188,19 @@ def dashboard(request):
         }
     )
 
+    # Get the default address
+    default_address = Address.objects.filter(
+        user=request.user,
+        is_default=True
+    ).first()
+
+    # Get all saved addresses (useful later for checkout and address management)
+    addresses = Address.objects.filter(user=request.user)
+
     context = {
-        "profile": profile
+        "profile": profile,
+        "default_address": default_address,
+        "addresses": addresses,
     }
 
     return render(
@@ -198,3 +214,65 @@ def logout_view(request):
     logout(request)
     messages.success(request, "Logged out successfully.")
     return redirect("home")
+
+
+
+from .forms import AddressForm
+
+
+def manage_address(request):
+
+    address = Address.objects.filter(
+
+        user=request.user,
+        is_default=True
+
+    ).first()
+
+    if request.method=="POST":
+
+        form = AddressForm(
+
+            request.POST,
+            instance=address
+
+        )
+
+        if form.is_valid():
+
+            obj = form.save(commit=False)
+
+            obj.user = request.user
+
+            obj.is_default = True
+
+            obj.save()
+
+            return redirect("dashboard")
+
+    else:
+
+        form = AddressForm(instance=address)
+
+    return render(
+
+        request,
+        "accounts/manage_address.html",
+        {
+            "form":form
+        }
+
+    )
+
+
+
+
+
+
+
+
+
+
+
+
+
