@@ -38,7 +38,7 @@
 
     <link rel="canonical" href="{{ seo.canonical }}">
     <!-- CSS -->
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!--<link rel="stylesheet" href="{% static 'css/style.css' %}"> -->
 
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
@@ -301,8 +301,9 @@
 
         .footer-top{
             display:grid;
-            grid-template-columns:1fr 2fr 1fr;
-            gap:60px;
+            grid-template-columns:1.2fr 2fr 1.2fr;
+            align-items:center;
+            gap:40px;
             padding:50px 80px;
             border-top:1px solid #ddd;
             border-bottom:1px solid #ddd;
@@ -319,27 +320,39 @@
         }
 
 
-.footer-links{
+.footer-center{
+    text-align:center;
+}
+
+.footer-menu{
+    font-size: 12px;
     display:flex;
-    flex-direction:column;
+    flex-wrap:wrap;
+    justify-content:center;
+    align-items:center;
     gap:12px;
+    margin-bottom:25px;
 }
 
-.footer-links h5{
-    color:var(--secondary);
-    font-weight:600;
-    margin-bottom:10px;
-}
-
-.footer-links a{
+.footer-menu a{
     text-decoration:none;
     color:#555;
+    font-size:14px;
     transition:.3s;
 }
 
-.footer-links a:hover{
+.footer-menu a:hover{
     color:var(--primary);
-    padding-left:6px;
+}
+
+.footer-menu span{
+    color:#000000;
+}
+
+.footer-tagline{
+    font-size:12px;
+    color:#555;
+    margin-top:15px;
 }
 
         .contact{
@@ -353,12 +366,13 @@
         }
 
         .contact p{
-            margin-bottom:12px;
+            margin-bottom:5px;
             color:#555;
             font-size:15px;
         }
 
         .contact p i{
+            font-size: 22px;
             color:var(--secondary);
             margin-right:8px;
         }
@@ -391,7 +405,7 @@
             display:grid;
             grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
             gap:10px;
-            font-size:15px;
+            font-size:14px;
             color:#555;
         }
 
@@ -468,7 +482,30 @@
         width:45%;
     }
 
+        .contact p{
+            margin-bottom:10px;
+            font-size:15px;
+            display: inline-flex;
+        }
 
+        .contact p i{
+            margin-right:8px;
+            font-size: 23px;
+        }
+
+        .social-icons a{
+            width:35px;
+            height:35px;
+            display:inline-flex;
+            align-items:center;
+            justify-content:center;
+            background:var(--secondary);
+            color:white;
+            border-radius:50%;
+            margin:0 5px;
+            text-decoration:none;
+            transition:.3s;
+        }
 
     .footer-top{
         padding:40px;
@@ -632,13 +669,13 @@
     }
 
     .contact p{
-        font-size:14px;
+        font-size:13px;
     }
 
     .cities{
         grid-template-columns:repeat(2,1fr);
         gap:10px;
-        font-size:14px;
+        font-size:13px;
     }
 
     .social-icons a{
@@ -892,16 +929,34 @@
             </p>
         </div>
 
-        <div class="footer-links">
-            <h5>Quick Links</h5>
+<div class="footer-center">
 
-            <a href="{% url 'faq' %}">FAQ</a>
-            <a href="{% url 'blog' %}">Blog</a>
-            <a href="{% url 'terms_conditions' %}">Terms & Conditions</a>
-            <a href="{% url 'privacy_policy' %}">Privacy Policy</a>
-            <a href="{% url 'refund_policy' %}">Refund Policy</a>
-            <a href="{% url 'contact_us' %}">Contact Us</a>
-        </div>
+    <div class="footer-menu">
+
+        <a href="{% url 'faq' %}">FAQ</a>
+        <span>•</span>
+
+        <a href="{% url 'blog' %}">Blog</a>
+        <span>•</span>
+
+        <a href="{% url 'terms_conditions' %}">Terms & Conditions</a>
+        <span>•</span>
+
+        <a href="{% url 'privacy_policy' %}">Privacy Policy</a>
+        <span>•</span>
+
+        <a href="{% url 'refund_policy' %}">Refund Policy</a>
+        <span>•</span>
+
+        <a href="{% url 'contact_us' %}">Contact Us</a>
+
+    </div>
+
+    <p class="footer-tagline">
+        Order fresh Fish, Poultry and Mutton delivered to your doorstep.
+    </p>
+
+</div>
 
         <div class="contact">
 
@@ -910,17 +965,17 @@
     <p>
         <i class="fa-solid fa-phone"></i>
         1800-313-3302
-    </p>
+    </p><br>
 
     <p>
         <i class="fa-solid fa-envelope"></i>
         thefreshbarrel@gmail.com
-    </p>
+    </p><br>
 
     <p>
         <i class="fa-solid fa-clock"></i>
         Mon - Sun : 8 AM - 8 PM
-    </p>
+    </p><br>
 
     <div class="social-icons">
         <a href="#"><i class="fab fa-facebook-f"></i></a>
